@@ -1,0 +1,81 @@
+---
+title: "Title"
+subtitle: "If you want a subtitle, put it here"
+author: Update with your names
+date: September 01, 2023 - Update with today's date
+format: 
+  html:
+    toc: true 
+    number_sections: false
+---
+
+```{r}
+#| label: setup 
+#| include: false
+
+# Load libraries and settings here
+library(tidyverse)
+library(here)
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>",
+  fig.path = "figs/", # Folder where rendered plots are saved
+  fig.width = 7.252, # Default plot width
+  fig.height = 4, # Default plot height
+  fig.retina = 3 # For better plot resolution
+)
+```
+
+Write your proposal content here. 
+
+Make sure you update the settings in the YAML for your report. 
+
+Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, _Italic_, etc.
+
+Make a bullet list like this: 
+
+- Item 1
+- Item 2
+- Item 3
+
+Or a nubmered list like this: 
+
+1. Item 1
+2. Item 2
+3. Item 3
+
+If you want to insert an image in the `images` folder, you can insert it using html code like this: 
+
+<center>
+<img src="images/madd_logo.png" width=150>
+</center>
+
+The code `<center>` and `</center>` just puts the image in the center of the page, the `src=""` part defines the path to the image, and the `width=300` part defines the image width in pixels - use that to adjust the image size in your report.
+
+Here are some section headers to use: 
+
+# Abstract
+
+
+
+
+# Introduction
+
+
+
+
+# Market Opportunity
+
+
+
+
+# Product Attributes & Research Questions
+
+
+
+
+# Questions
+
+
+
