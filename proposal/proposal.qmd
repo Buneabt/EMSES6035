@@ -1,8 +1,8 @@
 ---
-title: "Title"
-subtitle: "If you want a subtitle, put it here"
-author: Update with your names
-date: September 01, 2023 - Update with today's date
+title: "RFIDinMe"
+subtitle: ""
+author: Bogdan, Collin, Jeb, Abdullah
+date: September 21, 2025 - Update with today's date
 format: 
   html:
     toc: true 
