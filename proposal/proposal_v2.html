@@ -25,17 +25,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="proposal_files/libs/clipboard/clipboard.min.js"></script>
-<script src="proposal_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="proposal_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="proposal_files/libs/quarto-html/popper.min.js"></script>
-<script src="proposal_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="proposal_files/libs/quarto-html/anchor.min.js"></script>
-<link href="proposal_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="proposal_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="proposal_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="proposal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="proposal_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="proposal_v2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="proposal_v2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="proposal_v2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="proposal_v2_files/libs/quarto-html/popper.min.js"></script>
+<script src="proposal_v2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="proposal_v2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="proposal_v2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="proposal_v2_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="proposal_v2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="proposal_v2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="proposal_v2_files/libs/bootstrap/bootstrap-81267100e462c21b3d6c0d5bf76a3417.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -113,6 +113,53 @@ ul.task-list li input[type="checkbox"] {
 <p>The current market size of RFID wearables is $12.6 billion in 2025 and expected to grow to $25.2 billion in 2033 [1]. Our market share is lower as this figure includes the total RFID market which includes industrial uses of RFID such as large scanning devices and individual tags for products.</p>
 <p>While the total market size for this subset is hard to estimate as well as the market share we anticipate to grab we can infer some things such as market regions and addressing market size. Given that RFID is being used as a software version of identification, the largest market source will come from cities in large consumer economies.</p>
 <p>Currently the market does have a decent amount of competitors for the wearables market. Big name brands such as Walmart sell basic RFID programmable rings and individual sellers on online marketplaces such as Etsy and Amazon sell their own versions. While a website known as Dangerous Things sells both a limited amount of wearables and implantables. The current revenues of these products are unknown and need to be researched further.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 59%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative</th>
+<th>Description</th>
+<th>Technology Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>QR codes</td>
+<td>2D optical codes scanned by camera-enabled devices</td>
+<td>Optical</td>
+</tr>
+<tr class="even">
+<td>Barcodes</td>
+<td>Linear visual codes read by laser scanners</td>
+<td>Optical</td>
+</tr>
+<tr class="odd">
+<td>Bluetooth Low Energy</td>
+<td>Short-range wireless for device-to-device communication</td>
+<td>Wireless Radio</td>
+</tr>
+<tr class="even">
+<td>GPS tracking</td>
+<td>Satellite-based geolocation for movement and location data</td>
+<td>Satellite</td>
+</tr>
+<tr class="odd">
+<td>Near Field Communication (NFC)</td>
+<td>Short-range communication for contactless payments</td>
+<td>Wireless Radio</td>
+</tr>
+<tr class="even">
+<td>Ultra-wide Band (UWB)</td>
+<td>High-precision short-range radio for spatial awareness</td>
+<td>Wireless Radio</td>
+</tr>
+</tbody>
+</table>
+<p>These alternatives represent the most common identification and communication technologies currently available. While optical methods like QR codes and barcodes are inexpensive and simple to deploy, wireless options such as NFC, BLE, and UWB enable faster, more secure, and more flexible interactions. GPS offers location tracking capabilities that go beyond identification but is less suited for small wearable devices. This highlights both the variety of technologies and their differing levels of feasibility which allows for RFID technology to find its niche in the market.</p>
 </section>
 <section id="product-attributes-research-questions" class="level1">
 <h1>Product Attributes &amp; Research Questions</h1>
@@ -130,6 +177,8 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>1. Are customers interested in implantable technology or wearable technology?</strong></p>
 <p>This links specifically to our “Wearable vs Implantable” attribute, but also impacts the price, size, and security attributes. If RFIDinMe is wearable, it would be significantly larger than an implantable device. It would also be cheaper, as there would be few if no health restrictions. The location aspect also changes; implantable locations could include the hand or wrist, but wearable locations could be fingers, wrists, a necklace, or more. However, a wearable RFIDinMe would be less secure, as they could be stolen; an implantable device would be much more intensive to steal.</p>
 <p><strong>2. To what extent should we encrypt user data?</strong></p>
+<p>This question links to security, storage, and price. As encryption of data becomes more complicated, the security of that data increases. At the same time, as that complexity increases, so does the amount of space that the data takes up through padding. Additionally, added complexity in encryption will also increase the cost of the final product.</p>
+<p><strong>3. In which contexts (payment, ID, transport, medical) are customers most willing to adopt RFID technology?</strong></p>
 <p>This question links to security, storage, and price. As encryption of data becomes more complicated, the security of that data increases. At the same time, as that complexity increases, so does the amount of space that the data takes up through padding. Additionally, added complexity in encryption will also increase the cost of the final product.</p>
 </section>
 <section id="other-questions" class="level1">
