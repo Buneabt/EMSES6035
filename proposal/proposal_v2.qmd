@@ -30,14 +30,13 @@ knitr::opts_chunk$set(
 
 # Abstract
 
-RFIDinMe is a RFID (Radio Frequency Identification) device that allows the user to have convenient access to payment options and other features. The design will be informed by surveys that question potential customers on their feelings on seven key attributes: price, wearable vs. implantable, location, size, storage, and security. To conduct additional research, we will use the following questions: “Are customers interested in implantable technology or wearable technology?” and “To what extent should we encrypt user data?” These key attributes will be evaluated using survey results and research questions to provide an optimum design to customers.
+RFIDinMe is a RFID (Radio Frequency Identification) device that allows the user to have convenient access to payment options and other features. The design will be informed by surveys that question potential customers on their feelings on eight key attributes: price, wearable vs. implantable, location, size, storage, compatability, and security. To conduct additional research, we will use research questions to create researchable sub topics that will achieve our goal. These key attributes will be evaluated using survey results and research questions to provide an optimum design to customers.
 
 # Introduction
 
-This project aims to research different wearable RFID devices to discover the optimum point for widespread adoption. RFID devices can be used for payment, tracking, asset management, and more. Current wearables include watches and rings; there is even a limited market for implanted RFID devices. During this project, our team will evaluate design decisions for our product, RFIDinMe.
+This project aims to research different wearable RFID devices to discover the optimum point for widespread adoption. RFID (Radio Frequency Identification) devices can be used for payment, tracking, asset management, and more. Current wearables include watches and rings; there is even a limited market for implanted RFID devices. During this project, our team will evaluate design decisions for our product, RFIDinMe.
 
 ![This image above shows an Ai generated image of an RFID wearable that you may find on the market today.](images/AiWatch.png) 
-
 
 
 # Market Opportunity
