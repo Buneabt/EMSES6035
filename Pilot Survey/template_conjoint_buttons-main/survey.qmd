@@ -8,7 +8,7 @@ warning: false
 theme: default
 barposition: top
 footer-left: "Made with [surveydown](https://surveydown.org)"
-footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/template_conjoint_buttons)'
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/templates)'
 
 # Survey Settings
 use-cookies: true
@@ -83,32 +83,6 @@ sd_next()
 
 :::
 
-::: {.sd_page id=favorite_fruit}
-
-# Favorite Fruit
-
-```{r}
-sd_question(
-  type  = 'mc',
-  id    = 'like_fruit',
-  label = "Do you like fruit?",
-  option = c(
-    'Yes!'    = 'yes',
-    'Kind of' = 'kind_of',
-    'No :('   = 'no'
-  )
-)
-
-sd_question(
-  type  = 'text',
-  id    = 'fav_fruit',
-  label = "What is your favorite fruit?"
-)
-
-sd_next()
-```
-
-:::
 
 ::: {.sd_page id=screening}
 
@@ -134,93 +108,6 @@ sd_next()
 
 :::
 
-::: {.sd_page id=educational}
-
-# Educational Page
-
-Great work! 
-
-Now that you've shared a bit about yourself, we'd like you to consider a shopping scenario in which you can choose some apples to purchase from a set of apples with different attributes.
-
-Let's learn about these attributes.
-
-## Price
-
-Price refers to the full price you will pay (including taxes) for the apples
-
-## Freshness
-
-The freshness of the apple will be presented as one of three different categories:
-
-- **Excellent**: No bruising or marks. 
-- **Average**: One or two light bruises. 
-- **Poor**: Multiple bruises and marks.
-
-## Type
-
-We will show five different types of apples:
-
-<div style="width: 500px;">
-
-Fuji | Gala | Honeycrisp | Pink Lady | Red Delicious
------|------|------------|-----------|--------------
-<img src="images/fuji.jpg" width=100> | <img src="images/gala.jpg" width=100> | <img src="images/honeycrisp.jpg" width=100> | <img src="images/pinkLady.jpg" width=100> | <img src="images/redDelicious.jpg" width=100>
-
-</div>
-
-```{r}
-sd_next()
-```
-
-:::
-
-::: {.sd_page id=cbc_practice_page}
-
-# Choice-based Conjoint (cbc) Practice
-
-We'll now begin the choice tasks. On the next few pages we will show you three options of apples and we'll ask you to choose the one you most prefer.
-
-```{r}
-# Define the option vector
-
-apple_buttons_option <- c("option_1", "option_2", "option_3")
-
-# Change the names of each element to display markdown-formatted
-# text and an embedded image using html
-
-names(apple_buttons_option)[1] <- "
-  **Option 1**<br>
-  <img src='images/fuji.jpg' width=100><br>
-  **Type**: Fuji<br>
-  **Price**: $ 2 / lb<br>
-  **Freshness**: Average
-"
-names(apple_buttons_option)[2] <- "
-  **Option 2**<br>
-  <img src='images/pinkLady.jpg' width=100><br>
-  **Type**: Pink Lady<br>
-  **Price**: $ 1.5 / lb<br>
-  **Freshness**: Excellent
-"
-names(apple_buttons_option)[3] <- "
-  **Option 3**<br>
-  <img src='images/honeycrisp.jpg' width=100><br>
-  **Type**: Honeycrisp<br>
-  **Price**: $ 2 / lb<br>
-  **Freshness**: Poor
-"
-
-sd_question(
-  type   = 'mc_buttons',
-  id     = 'cbc_practice',
-  label  = "For example, if these were the only apples available, which would you choose?",
-  option = apple_buttons_option
-)
-
-sd_next()
-```
-
-:::
 
 ::: {.sd_page id=cbc_intro}
 
@@ -302,55 +189,6 @@ sd_next()
 
 :::
 
-::: {.sd_page id=apple_knowledge}
-
-# Apple Knowledge
-
-Thank you for your feedback! The next section will ask some basic questions about apples. 
-
-Please answer to the best of your knowledge.
-
-```{r}
-label <- 'Please select the type of this apple:
-
-  <img src="images/fuji.jpg" width=100>'
-
-sd_question(
-  type  = 'select',
-  id    = 'apple_knowledge_1',
-  label = label,
-  option = c(
-    'Fuji'          = 'fuji',
-    'Gala'          = 'gala',
-    'Honeycrisp'    = 'honeycrisp',
-    'Pink Lady'     = 'pink_lady',
-    'Red Delicious' = 'red_delicious'
-  ),
-  width = "500px"
-)
-
-label <- 'Please select the type of this apple:
-
-<img src="images/gala.jpg" width=100>'
-
-sd_question(
-  type  = 'select',
-  id    = 'apple_knowledge_2',
-  label = label,
-  option = c(
-    'Fuji'          = 'fuji',
-    'Gala'          = 'gala',
-    'Honeycrisp'    = 'honeycrisp',
-    'Pink Lady'     = 'pink_lady',
-    'Red Delicious' = 'red_delicious'
-  ),
-  width = "500px"
-)
-
-sd_next()
-```
-
-:::
 
 ::: {.sd_page id=demographics}
 
