@@ -230,64 +230,8 @@ sd_question(
   option = genders
 )
 
-races <- c(
-  "White (Not of Hispanic or Latino origin)"  = "white",
-  "African American or Black"                 = "black",
-  "Asian"                                     = "asian",
-  "Hispanic or Latino"                        = "hispanic",
-  "American Indian or Alaska Native"          = "native_american",
-  "Native Hawaiian or Other Pacific Islander" = "pacific_islander",
-  "Prefer not to say"                         = "prefer_not_to_say"
-)
 
-sd_question(
-  type   = 'select',
-  id     = 'race',
-  label  = "(3) I identify my race as (select all that apply):",
-  option = races
-)
 
-educations <- c(
-  "Less than high school" = "less_than_high_school",
-  "High school"           = "high_school",
-  "Some college"          = "some_college",
-  "Associate's degree"    = "associate_degree",
-  "Bachelor's degree"     = "bachelor_degree",
-  "Master's degree"       = "master_degree",
-  "Doctoral degree"       = "doctoral_degree",
-  "Prefer not to say"     = "prefer_not_to_say"
-)
-
-sd_question(
-  type   = 'select',
-  id     = 'education',
-  label  = "(4) What is the highest degree or level of school you have completed? If currently enrolled, please use the highest degree received.",
-  option = educations
-)
-
-incomes <- c(
-  "Less than $10,000"    = "less_than_10k",
-  "$10,000 to $14,999"   = "10k_to_14k",
-  "$15,000 to $19,999"   = "15k_to_19k",
-  "$20,000 to $24,999"   = "20k_to_24k",
-  "$25,000 to $29,999"   = "25k_to_29k",
-  "$30,000 to $34,999"   = "30k_to_34k",
-  "$35,000 to $39,999"   = "35k_to_39k",
-  "$40,000 to $49,999"   = "40k_to_49k",
-  "$50,000 to $74,999"   = "50k_to_74k",
-  "$75,000 to $99,999"   = "75k_to_99k",
-  "$100,000 to $149,999" = "100k_to_149k",
-  "$150,000 to $199,999" = "150k_to_199k",
-  "$200,000 or more"     = "200k_or_more",
-  "Prefer not to say"    = "prefer_not_to_say"
-)
-
-sd_question(
-  type   = 'select',
-  id     = 'income',
-  label  = "(5) What is your annual household income (from all sources) before taxes and other deductions from pay?",
-  option = incomes
-)
 
 sd_question(
   type  = "textarea",

@@ -12,16 +12,6 @@ consent_understand:
   options:
     'Yes': 'yes'
     'No': 'no'
-like_fruit:
-  type: mc
-  label: Do you like fruit?
-  options:
-    Yes!: 'yes'
-    Kind of: kind_of
-    No :(: 'no'
-fav_fruit:
-  type: text
-  label: What is your favorite fruit?
 screenout:
   type: mc
   label: 'Before we go on, please select which color you prefer between these two:'
@@ -168,25 +158,6 @@ education:
     Bachelor's degree: bachelor_degree
     Master's degree: master_degree
     Doctoral degree: doctoral_degree
-    Prefer not to say: prefer_not_to_say
-income:
-  type: select
-  label: (5) What is your annual household income (from all sources) before taxes
-    and other deductions from pay?
-  options:
-    Less than $10,000: less_than_10k
-    $10,000 to $14,999: 10k_to_14k
-    $15,000 to $19,999: 15k_to_19k
-    $20,000 to $24,999: 20k_to_24k
-    $25,000 to $29,999: 25k_to_29k
-    $30,000 to $34,999: 30k_to_34k
-    $35,000 to $39,999: 35k_to_39k
-    $40,000 to $49,999: 40k_to_49k
-    $50,000 to $74,999: 50k_to_74k
-    $75,000 to $99,999: 75k_to_99k
-    $100,000 to $149,999: 100k_to_149k
-    $150,000 to $199,999: 150k_to_199k
-    $200,000 or more: 200k_or_more
     Prefer not to say: prefer_not_to_say
 feedback:
   type: unknown

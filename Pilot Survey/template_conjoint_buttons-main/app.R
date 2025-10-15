@@ -50,7 +50,7 @@ server <- function(input, output, session) {
   sd_store_value(completion_code)
 
   # Read in the full survey design file
-  design <- read_csv(here("data", "choice_questions.csv"))
+  design <- read_csv(here("data", "choice_questions1.csv"))
 
   # Sample a random respondentID and store it directly as "respID"
   respondentID <- sample(design$respID, 1)
@@ -80,27 +80,27 @@ server <- function(input, output, session) {
     names(options) <- c(
       glue("
         **Option 1**<br>
-        **Type**:  $ {alt1$type}<br>
+        **Type**:  {alt1$type}<br>
         **Price**: $ {alt1$price} $ <br>
-        **Compatability**:  $ {alt1$compatability}<br>
-        **Capcacity**: $ {alt1$capacity} $ <br>
-        **Range**: $ {alt1$range} $ <br>
+        **Compatability**:  {alt1$compatability}<br>
+        **Capcacity**: {alt1$capacity} tag(s)<br>
+        **Range**: {alt1$range} ft<br>
       "),
       glue("
         **Option 2**<br>
-        **Type**:  $ {alt2$type}<br>
-        **Price**: $ {alt2$price} $ <br>
-        **Compatability**:  $ {alt2$compatability}<br>
-        **Capcacity**: $ {alt2$capacity} $ <br>
-        **Range**: $ {alt2$range} $ <br>
+        **Type**:  {alt2$type}<br>
+        **Price**: ${alt2$price} <br>
+        **Compatability**:  {alt2$compatability}<br>
+        **Capcacity**: {alt2$capacity} tag(s) <br>
+        **Range**: {alt2$range} ft<br>
       "),
       glue("
         **Option 3**<br>
-        **Type**:  $ {alt3$type}<br>
-        **Price**: $ {alt3$price} $ <br>
-        **Compatability**:  $ {alt3$compatability}<br>
-        **Capcacity**: $ {alt3$capacity} $ <br>
-        **Range**: $ {alt3$range} $ <br>
+        **Type**:  {alt3$type}<br>
+        **Price**: $ {alt3$price} <br>
+        **Compatability**:  {alt3$compatability}<br>
+        **Capcacity**: {alt3$capacity} tag(s) <br>
+        **Range**: {alt3$range} ft<br>
       ")
     )
     return(options)
@@ -166,13 +166,10 @@ server <- function(input, output, session) {
     input$consent_understand == "no" ~ "end_consent"
   )
 
-  # Define conditional display logic (show a question if a condition is true)
-  sd_show_if(
-    input$like_fruit %in% c("yes", "kind_of") ~ "fav_fruit"
-  )
 
   # Run surveydown server and define database
-  sd_server(db = db)
+  sd_server(db = db,
+            all_questions_required = TRUE)
 }
 
 # Launch the app
