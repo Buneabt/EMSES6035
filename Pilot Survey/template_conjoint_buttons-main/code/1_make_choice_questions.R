@@ -12,9 +12,9 @@ library(tidyverse)
 
 # Define profiles with attributes and levels
 profiles <- cbc_profiles(
-  category      = c('Implant', 'Ring', 'Bracelet', 'Card'),
+  type      = c('Implant', 'Ring', 'Bracelet', 'Card'),
   price     = c(25,50,100), # $
-  compatibility = c('iOS', 'Android', 'Both'),
+  compatability = c('iOS', 'Android', 'Both'),
   capacity = c(1,3,5),# kilobytes
   range = c(1,3,5) # feet
 )
@@ -32,12 +32,12 @@ head(design) # preview
 # Add image names matched to the apple type
 # (we'll use these to display images in the survey)
 image_names <- data.frame(
-  type = c('Implant', 'Ring', 'Bracelet', 'Card'),
+  type = c('Bracelet','Card','Ring','Implant'),
   image = c(
-    'Bracelet.png',
-    'Card.png',
-    'Ring.png',
-    'Implant.png')
+    'Bracelet.jpg',
+    'Card.jpg',
+    'Ring.jpg',
+    'Implant.jpg')
 )
 design <- design %>%
   left_join(image_names, by = "type")
@@ -46,3 +46,6 @@ head(design) # preview
 
 # Save design
 write_csv(design, here("data", "choice_questions.csv"))
+
+
+
