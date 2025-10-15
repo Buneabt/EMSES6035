@@ -50,7 +50,7 @@ server <- function(input, output, session) {
   sd_store_value(completion_code)
 
   # Read in the full survey design file
-  design <- read_csv(here("data", "choice_questions1.csv"))  # Note: using your original filename
+  design <- read_csv(here("data", "choice_questions.csv"))  # Note: using your original filename
 
   # Sample a random respondentID and store it directly as "respID"
   respondentID <- sample(design$respID, 1)
@@ -58,7 +58,9 @@ server <- function(input, output, session) {
 
   # Filter for the rows for the chosen respondentID
   df <- design |>
-    filter(respID == respondentID)
+    filter(respID == respondentID) %>%
+    mutate(image = paste0("images/",image))
+
 
   # Function to create the question labels based on design values
   make_cbc_options <- function(df) {
@@ -71,27 +73,30 @@ server <- function(input, output, session) {
     names(options) <- c(
       glue("
         **Option 1**<br>
+        <img src='{alt1$image}' width=100><br>
         **Type**: {alt1$type}<br>
         **Price**: ${alt1$price}<br>
         **Compatibility**: {alt1$compatability}<br>
         **Capacity**: {alt1$capacity} tag(s)<br>
-        **Range**: {alt1$range} ft<br>
+        **Range**: {alt1$range} ft
       "),
       glue("
         **Option 2**<br>
+        <img src='{alt2$image}' width=100><br>
         **Type**: {alt2$type}<br>
         **Price**: ${alt2$price}<br>
         **Compatibility**: {alt2$compatability}<br>
         **Capacity**: {alt2$capacity} tag(s)<br>
-        **Range**: {alt2$range} ft<br>
+        **Range**: {alt2$range} ft
       "),
       glue("
         **Option 3**<br>
+        <img src='{alt3$image}' width=100><br>
         **Type**: {alt3$type}<br>
         **Price**: ${alt3$price}<br>
         **Compatibility**: {alt3$compatability}<br>
         **Capacity**: {alt3$capacity} tag(s)<br>
-        **Range**: {alt3$range} ft<br>
+        **Range**: {alt3$range} ft
       ")
     )
     return(options)

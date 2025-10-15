@@ -19,25 +19,21 @@ highlight-unanswered: true
 highlight-color: blue
 capture-metadata: true
 all-questions-required: true
-
 ---
 
 ```{r}
 library(surveydown)
 ```
 
-::: {.sd_page id=welcome}
-
+::: {#welcome .sd_page}
 This survey asks about your preferences for **RFID technologies** used for payment and identification — such as **rings**, **bracelets**, **cards**, or **implants**.
 
 ```{r}
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=consent}
-
+::: {#consent .sd_page}
 # Consent
 
 This survey is being conducted by students at The George Washington University. We will not be collecting any identifying data, such as your name or address. The survey will take about 10–15 minutes. Your participation is voluntary and you may stop at any time.
@@ -59,11 +55,9 @@ sd_question(
 
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=favorite_fruit}
-
+::: {#favorite_fruit .sd_page}
 # RFID Familiarity
 
 ```{r}
@@ -76,14 +70,12 @@ sd_question(
 
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=screening}
-
+::: {#screening .sd_page}
 # Screening Question
 
-If you are **interested in alternatives to carrying a wallet** (for payments or ID) using RFID technology, please select **Interested**.  
+If you are **interested in alternatives to carrying a wallet** (for payments or ID) using RFID technology, please select **Interested**.\
 If you are **not interested at all**, select **Not interested**.
 
 ```{r}
@@ -96,43 +88,39 @@ sd_question(
 
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=educational}
-
+::: {#educational .sd_page}
 # Educational Page
 
 Now that you've shared a bit about yourself, consider a scenario in which you can choose an **RFID technology** from a set of options with different attributes.
 
 ## Price
+
 The cost (USD) you would pay for the device.
 
 ## Range
+
 How far (in feet) a scanner can detect the RFID signal (e.g., 0.1, 0.5, or 1 ft).
 
 ## Compatibility
+
 Which phone ecosystem the device pairs with: **iOS**, **Android**, or **Both**.
 
 ## Storage
+
 How many digital ID tags can be stored (e.g., **1**, **3**, or **5 Tags**).
 
 ## Type / Location
-We will show several **form factors**:
-- **Bracelet** or **Ring** (wearables)
-- **Card** (wallet alternative)
-- **Implant** (subdermal location such as **hand**, **wrist**, or **finger**)
 
+We will show several **form factors**: - **Bracelet** or **Ring** (wearables) - **Card** (wallet alternative) - **Implant** (subdermal location such as **hand**, **wrist**, or **finger**)
 
 ```{r}
 sd_next()
 ```
-
 :::
 
-
-::: {.sd_page id=cbc_intro}
-
+::: {#cbc_intro .sd_page}
 # Conjoint Question Intro
 
 On the next pages, you’ll see three RFID options. Choose the one you most prefer.
@@ -142,78 +130,63 @@ We will now show you 6 sets of choice questions starting on the next page.
 ```{r}
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=cbc_q1_page}
-
+::: {#cbc_q1_page .sd_page}
 # Conjoint Question 1
 
 ```{r}
 sd_output("cbc_q1", type = "question")
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=cbc_q2_page}
-
+::: {#cbc_q2_page .sd_page}
 # Conjoint Question 2
 
 ```{r}
 sd_output("cbc_q2", type = "question")
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=cbc_q3_page}
-
+::: {#cbc_q3_page .sd_page}
 # Conjoint Question 3
 
 ```{r}
 sd_output("cbc_q3", type = "question")
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=cbc_q4_page}
-
+::: {#cbc_q4_page .sd_page}
 # Conjoint Question 4
 
 ```{r}
 sd_output("cbc_q4", type = "question")
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=cbc_q5_page}
-
+::: {#cbc_q5_page .sd_page}
 # Conjoint Question 5
 
 ```{r}
 sd_output("cbc_q5", type = "question")
 sd_next()
 ```
-
 :::
 
-::: {.sd_page id=cbc_q6_page}
-
+::: {#cbc_q6_page .sd_page}
 # Conjoint Question 6
 
 ```{r}
 sd_output("cbc_q6", type = "question")
 sd_next()
 ```
-
 :::
 
-
-::: {.sd_page id=demographics}
-
+::: {#demographics .sd_page}
 # Demographics Page
 
 ## Nice job!
@@ -221,7 +194,6 @@ sd_next()
 We're almost done! We'd just like to ask just a few more questions about you which we will only use for analyzing our survey data.
 
 ::: {style="width:500px; margin: 0 auto;"}
-
 ```{r}
 # Construct the list of years
 
@@ -263,13 +235,10 @@ sd_question(
 
 sd_next()
 ```
-
+:::
 :::
 
-:::
-
-::: {.sd_page id=end_normal}
-
+::: {#end_normal .sd_page}
 # End Page
 
 The survey is finished. Thank you for your feedback!
@@ -281,11 +250,9 @@ You may close the window now.
 ```{r}
 sd_close()
 ```
-
 :::
 
-::: {.sd_page id=end_consent}
-
+::: {#end_consent .sd_page}
 # End Page
 
 The survey is now finished. You may close the window.
@@ -293,11 +260,9 @@ The survey is now finished. You may close the window.
 ```{r}
 sd_close()
 ```
-
 :::
 
-::: {.sd_page id=end_screenout}
-
+::: {#end_screenout .sd_page}
 # End Page
 
 Sorry, we wanted you to select the **red** button.
@@ -307,5 +272,4 @@ The survey is now finished. You may close the window.
 ```{r}
 sd_close()
 ```
-
 :::
