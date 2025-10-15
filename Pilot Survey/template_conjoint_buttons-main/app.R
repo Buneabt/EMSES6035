@@ -170,7 +170,7 @@ server <- function(input, output, session) {
 
   # Run surveydown server and define database
   sd_server(db = db,
-            all_questions_required = FALSE)
+            all_questions_required = TRUE)
 }
 
 # Launch the app
