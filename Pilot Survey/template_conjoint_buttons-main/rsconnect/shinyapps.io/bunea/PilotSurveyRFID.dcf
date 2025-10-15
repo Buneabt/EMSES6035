@@ -1,0 +1,10 @@
+name: PilotSurveyRFID
+title:
+username: bunea
+account: bunea
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15764967
+bundleId: 11038500
+url: https://bunea.shinyapps.io/PilotSurveyRFID/
+version: 1
