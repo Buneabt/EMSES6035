@@ -18,11 +18,8 @@ system-language: en
 highlight-unanswered: true
 highlight-color: blue
 capture-metadata: true
-all-questions-required: false
-required-questions:
-  - consent_age
-  - consent_understand
-  - screenout
+all-questions-required: true
+
 ---
 
 ```{r}
@@ -30,12 +27,6 @@ library(surveydown)
 ```
 
 ::: {.sd_page id=welcome}
-
-# Template - Choice-based-conjoint Survey
-
-::: {.callout-note}
-There are two versions of the conjoint survey: "button" and "table". This is the "**button**" version. In this version, the conjoint options are shown in buttons.
-:::
 
 This survey asks about your preferences for **RFID technologies** used for payment and identification — such as **rings**, **bracelets**, **cards**, or **implants**.
 
@@ -260,9 +251,6 @@ sd_question(
   label  = "(2) What is your current gender identity?",
   option = genders
 )
-
-
-
 
 sd_question(
   type  = "textarea",

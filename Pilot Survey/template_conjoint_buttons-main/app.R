@@ -2,13 +2,13 @@
 
 # Install required packages:
 # install.packages("pak")
-# pak::pak(c(
-#   'surveydown-dev/surveydown', # Development version from GitHub
-#   'here',
-#   'glue',
-#   'readr',
-#   'dplyr'
-# ))
+#pak::pak(c(
+#  'surveydown-dev/surveydown', # Development version from GitHub
+#  'here',
+#  'glue',
+#  'readr',
+#  'dplyr'
+#))
 
 # Load packages
 library(surveydown)
@@ -50,7 +50,7 @@ server <- function(input, output, session) {
   sd_store_value(completion_code)
 
   # Read in the full survey design file
-  design <- read_csv(here("data", "choice_questions1.csv"))
+  design <- read_csv(here("data", "choice_questions1.csv"))  # Note: using your original filename
 
   # Sample a random respondentID and store it directly as "respID"
   respondentID <- sample(design$respID, 1)
@@ -65,42 +65,32 @@ server <- function(input, output, session) {
     alt1 <- df |> filter(altID == 1)
     alt2 <- df |> filter(altID == 2)
     alt3 <- df |> filter(altID == 3)
-    alt4 <- df |> filter(altID == 3)
-    alt5 <- df |> filter(altID == 3)
-    alt6 <- df |> filter(altID == 3)
 
     options <- c("option_1", "option_2", "option_3")
-
-    #type = c("Implantable", "Ring", "Bracelet", "Card"),
-    #price = c(25, 50, 100),
-    #compatability = c("iOS", "Android", "Both"),
-    #capacity = c(1,3,5), #No of cards
-    #range = c(0.1,0.5,1) #feet
 
     names(options) <- c(
       glue("
         **Option 1**<br>
-        **Type**:  {alt1$type}<br>
-        **Price**: $ {alt1$price} $ <br>
-
-        **Compatability**:  {alt1$compatability}<br>
-        **Capcacity**: {alt1$capacity} tag(s)<br>
+        **Type**: {alt1$type}<br>
+        **Price**: ${alt1$price}<br>
+        **Compatibility**: {alt1$compatability}<br>
+        **Capacity**: {alt1$capacity} tag(s)<br>
         **Range**: {alt1$range} ft<br>
       "),
       glue("
         **Option 2**<br>
-        **Type**:  {alt2$type}<br>
-        **Price**: ${alt2$price} <br>
-        **Compatability**:  {alt2$compatability}<br>
-        **Capcacity**: {alt2$capacity} tag(s) <br>
+        **Type**: {alt2$type}<br>
+        **Price**: ${alt2$price}<br>
+        **Compatibility**: {alt2$compatability}<br>
+        **Capacity**: {alt2$capacity} tag(s)<br>
         **Range**: {alt2$range} ft<br>
       "),
       glue("
         **Option 3**<br>
-        **Type**:  {alt3$type}<br>
-        **Price**: $ {alt3$price} <br>
-        **Compatability**:  {alt3$compatability}<br>
-        **Capcacity**: {alt3$capacity} tag(s) <br>
+        **Type**: {alt3$type}<br>
+        **Price**: ${alt3$price}<br>
+        **Compatibility**: {alt3$compatability}<br>
+        **Capacity**: {alt3$capacity} tag(s)<br>
         **Range**: {alt3$range} ft<br>
       ")
     )
@@ -115,9 +105,7 @@ server <- function(input, output, session) {
   cbc5_options <- make_cbc_options(df |> filter(qID == 5))
   cbc6_options <- make_cbc_options(df |> filter(qID == 6))
 
-  # Create each choice question - display these in your survey using sd_output()
-  # Example: sd_output('cbc_q1', type = 'question')
-
+  # Create each choice question
   sd_question(
     type = 'mc_buttons',
     id = 'cbc_q1',
@@ -160,18 +148,15 @@ server <- function(input, output, session) {
     option = cbc6_options
   )
 
-  # Define conditional skip logic (skip to page if a condition is true)
+  # Define conditional skip logic
   sd_skip_if(
     input$screenout == "blue" ~ "end_screenout",
     input$consent_age == "no" ~ "end_consent",
     input$consent_understand == "no" ~ "end_consent"
   )
 
-
   # Run surveydown server and define database
-  sd_server(db = db,
-            all_questions_required = TRUE)
+  sd_server(db = db, all_questions_required = TRUE)
 }
-
 # Launch the app
 shiny::shinyApp(ui = ui, server = server)
