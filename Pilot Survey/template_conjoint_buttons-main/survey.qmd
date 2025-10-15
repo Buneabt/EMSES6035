@@ -8,10 +8,10 @@ warning: false
 theme: default
 barposition: top
 footer-left: "Made with [surveydown](https://surveydown.org)"
-footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/templates)'
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/template_conjoint_buttons)'
 
 # Survey Settings
-use-cookies: true
+use-cookies: false
 auto-scroll: false
 rate-survey: false
 system-language: en
@@ -34,14 +34,10 @@ library(surveydown)
 # Template - Choice-based-conjoint Survey
 
 ::: {.callout-note}
-
-There are two versions of the conjoint survey: "button" and "table". This is the "**button**" version.
-
-In this version, the conjoint options are shown in buttons.
-
+There are two versions of the conjoint survey: "button" and "table". This is the "**button**" version. In this version, the conjoint options are shown in buttons.
 :::
 
-This is a template of choice-based-conjoint survey. For this survey, we will ask you about your preferences for different types of apples.
+This survey asks about your preferences for **RFID technologies** used for payment and identification — such as **rings**, **bracelets**, **cards**, or **implants**.
 
 ```{r}
 sd_next()
@@ -53,29 +49,21 @@ sd_next()
 
 # Consent
 
-This survey is being conducted by students at The George Washing University. We will not be collecting any identifying data, such as your name or address. The whole survey will take approximately 10 to 15 minutes to complete. Your participation is voluntary and you may stop the survey at any time.
-
-If you would like to participate, please answer the following questions:
+This survey is being conducted by students at The George Washington University. We will not be collecting any identifying data, such as your name or address. The survey will take about 10–15 minutes. Your participation is voluntary and you may stop at any time.
 
 ```{r}
 sd_question(
   type  = 'mc',
   id    = 'consent_age',
   label = "I am age 18 or older",
-  option = c(
-    'Yes' = 'yes',
-    'No'  = 'no'
-  )
+  option = c('Yes' = 'yes','No' = 'no')
 )
 
 sd_question(
   type  = 'mc',
   id    = 'consent_understand',
   label = "I have read and understand the above information",
-  option = c(
-    'Yes' = 'yes',
-    'No'  = 'no'
-  )
+  option = c('Yes' = 'yes','No' = 'no')
 )
 
 sd_next()
@@ -83,26 +71,69 @@ sd_next()
 
 :::
 
+::: {.sd_page id=favorite_fruit}
+
+# RFID Familiarity
+
+```{r}
+sd_question(
+  type  = 'mc',
+  id    = 'rfid_interest',
+  label = "Are you familiar with RFID technology?",
+  option = c('Yes!' = 'yes','Kind of' = 'kind_of','No :(' = 'no')
+)
+
+sd_next()
+```
+
+:::
 
 ::: {.sd_page id=screening}
 
-# Screening Questions
+# Screening Question
 
-For this example, I'm using the response here to screen out respondents - I'm only interested in people who choose **"Red"**, so if you choose "Blue" you'll be screened out.
-
-Usually you would not tell respondents ahead of time how they will be screened - I'm just putting an explanation here since this whole survey is for demonstration purposes
+If you are **interested in alternatives to carrying a wallet** (for payments or ID) using RFID technology, please select **Interested**.  
+If you are **not interested at all**, select **Not interested**.
 
 ```{r}
 sd_question(
   type  = 'mc',
   id    = 'screenout',
-  label = "Before we go on, please select which color you prefer between these two:",
-  option = c(
-    'Blue' = 'blue',
-    'Red'  = 'red'
-  )
+  label = "Overall, how interested are you in using RFID for payments or identification?",
+  option = c('Not interested' = 'blue', 'Interested' = 'red')
 )
 
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=educational}
+
+# Educational Page
+
+Now that you've shared a bit about yourself, consider a scenario in which you can choose an **RFID technology** from a set of options with different attributes.
+
+## Price
+The cost (USD) you would pay for the device.
+
+## Range
+How far (in feet) a scanner can detect the RFID signal (e.g., 0.1, 0.5, or 1 ft).
+
+## Compatibility
+Which phone ecosystem the device pairs with: **iOS**, **Android**, or **Both**.
+
+## Storage
+How many digital ID tags can be stored (e.g., **1**, **3**, or **5 Tags**).
+
+## Type / Location
+We will show several **form factors**:
+- **Bracelet** or **Ring** (wearables)
+- **Card** (wallet alternative)
+- **Implant** (subdermal location such as **hand**, **wrist**, or **finger**)
+
+
+```{r}
 sd_next()
 ```
 
@@ -113,7 +144,7 @@ sd_next()
 
 # Conjoint Question Intro
 
-Great work!
+On the next pages, you’ll see three RFID options. Choose the one you most prefer.
 
 We will now show you 6 sets of choice questions starting on the next page.
 

@@ -12,12 +12,19 @@ consent_understand:
   options:
     'Yes': 'yes'
     'No': 'no'
+rfid_interest:
+  type: mc
+  label: Are you familiar with RFID technology?
+  options:
+    Yes!: 'yes'
+    Kind of: kind_of
+    No :(: 'no'
 screenout:
   type: mc
-  label: 'Before we go on, please select which color you prefer between these two:'
+  label: Overall, how interested are you in using RFID for payments or identification?
   options:
-    Blue: blue
-    Red: red
+    Not interested: blue
+    Interested: red
 cbc_q1:
   type: unknown
   label: []
@@ -134,30 +141,6 @@ gender:
     Non-binary: non_binary
     Trans male/trans man: trans_male
     Trans female/trans woman: trans_female
-    Prefer not to say: prefer_not_to_say
-race:
-  type: select
-  label: '(3) I identify my race as (select all that apply):'
-  options:
-    White (Not of Hispanic or Latino origin): white
-    African American or Black: black
-    Asian: asian
-    Hispanic or Latino: hispanic
-    American Indian or Alaska Native: native_american
-    Native Hawaiian or Other Pacific Islander: pacific_islander
-    Prefer not to say: prefer_not_to_say
-education:
-  type: select
-  label: (4) What is the highest degree or level of school you have completed? If
-    currently enrolled, please use the highest degree received.
-  options:
-    Less than high school: less_than_high_school
-    High school: high_school
-    Some college: some_college
-    Associate's degree: associate_degree
-    Bachelor's degree: bachelor_degree
-    Master's degree: master_degree
-    Doctoral degree: doctoral_degree
     Prefer not to say: prefer_not_to_say
 feedback:
   type: unknown

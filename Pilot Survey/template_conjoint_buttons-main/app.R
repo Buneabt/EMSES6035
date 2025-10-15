@@ -82,6 +82,7 @@ server <- function(input, output, session) {
         **Option 1**<br>
         **Type**:  {alt1$type}<br>
         **Price**: $ {alt1$price} $ <br>
+
         **Compatability**:  {alt1$compatability}<br>
         **Capcacity**: {alt1$capacity} tag(s)<br>
         **Range**: {alt1$range} ft<br>
@@ -169,7 +170,7 @@ server <- function(input, output, session) {
 
   # Run surveydown server and define database
   sd_server(db = db,
-            all_questions_required = TRUE)
+            all_questions_required = FALSE)
 }
 
 # Launch the app
