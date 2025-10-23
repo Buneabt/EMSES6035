@@ -8,7 +8,7 @@ library(tidyverse)
 options(dplyr.widtkh = Inf)
 
 # Import raw data
-data_raw <- read_csv(here("data", "data_raw.csv"))
+data_raw <- read_csv(here("data", "PilotSurvey.csv"))
 
 # Format and join the three surveys -------
 
@@ -27,14 +27,14 @@ data <- data_raw %>%
     time_end =  ymd_hms(time_end, tz = "EST"),
     time_total = as.numeric(time_end - time_start, units = "secs"),
     # Compute time through just the cbc questions
-    time_p_cbc_q1 =  ymd_hms(time_p_cbc_q1, tz = "EST"),
-    time_p_cbc_q6 =  ymd_hms(time_p_cbc_q6, tz = "EST"),
-    time_cbc_total = as.numeric(time_p_cbc_q6 - time_p_cbc_q1, units = "secs")
+    time_p_cbc_q1_page =  ymd_hms(time_p_cbc_q1_page, tz = "EST"),
+    time_p_cbc_q6_page =  ymd_hms(time_p_cbc_q6_page, tz = "EST"),
+    time_cbc_total = as.numeric(time_p_cbc_q6_page - time_p_cbc_q1_page, units = "secs")
   ) %>%
   # Select important columns
   select(
-    session_id, time_total, time_cbc_total, respID, screenout, starts_with("cbc"),
-    apple_knowledge_1:feedback
+    session_id, time_total, time_cbc_total, respID, screenout, starts_with("cbc")#,
+    #apple_knowledge_1:feedback
   )
 
 head(data)
@@ -108,15 +108,15 @@ choice_data <- data %>%
 head(choice_data)
 
 # Read in choice questions and join it to the choice_data
-survey <- read_csv(here("data", "choice_questions.csv"))
+survey <- read_csv(here("data", "choice_questions1.csv"))
 choice_data <- choice_data %>%
     left_join(survey, by = c("respID", "qID"))
 
 # Convert choice column to 1 or 0 based on if the alternative was chosen
 choice_data <- choice_data %>%
-    mutate(choice = ifelse(choice == altID, 1, 0)) %>%
+    mutate(choice = ifelse(choice == altID, 1, 0))# %>%
     # Drop unused variables
-    select(-image)
+    #select(-image)
 
 head(choice_data)
 
