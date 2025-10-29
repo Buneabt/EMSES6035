@@ -19,7 +19,7 @@ model <- logitr(
   data = data,
   outcome = "choice",
   obsID = "obsID",
-  pars = c("price", "type", "freshness")
+  pars = c("price", "capacity", "range", "type", "compatability")
 )
 
 # View summary of results
