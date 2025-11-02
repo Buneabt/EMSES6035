@@ -1,0 +1,155 @@
+---
+title: "Pilot Survey analysis for RFID-In-Me"
+subtitle: "By: Abdullah, Bogdan, Collin, and Jeb"
+date: November 2, 2025 
+format:
+  html:
+    toc: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 7.252,
+    fig.height = 4,
+    comment = "#>",
+    fig.retina = 3
+)
+
+# Load libraries here
+library(tidyverse)
+library(here)
+library(readr)
+
+PilotSurvey <- read_csv("data/PilotSurvey.csv")
+choice_data <- read_csv("data/choice_data.csv")
+
+model <- readRDS("Model1.rds")
+
+```
+
+Write your report content here.
+
+Make sure you update the settings in the YAML for your report.
+
+Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, *Italic*, etc.
+
+Here are some section headers to use:
+
+# Abstract
+
+# Introduction
+
+# Survey Design
+
+# Pilot Data Analysis
+
+## Sample Description
+
+Our initial survey was disseminated to peers in the classroom for question. In total our team received `r nrow(PilotSurvey)` responses, while cleaning the survey only `r length(unique(choice_data$session_id))` responses remained; this will be elaborated further in the data cleaning portion.
+
+Each survey contained 6 choice questions pulled randomly from out design matrix. Thus from these 18 valid surveys, `r 18 * 6` choice questions were completed.
+
+Given our team was looking to explore the RFID communications market for consumers with an emphasis on *injectables* a younger target audience was the goal. Looking at our survey we had an average respondent age of `r round(2025 - mean(as.numeric(PilotSurvey$year_of_birth), na.rm = TRUE),1)`, a fairly young group which is exactly what we we're aiming for. This age group is more open to new technology ideas that may seem radical to an older environment.
+
+## Data Cleaning
+
+Data cleaning solely involved mutating the provided data cleaning folder provided by Professor Helveston. This process involves finding question completion times and creating basic filters to dwindle down the sample group (the 23-\>18 drop we saw earlier). These filters include answering the same for every question to completing the question too quickly. From here our cleaned data can be modeled to see if any actionable information comes from this survey.
+
+```{r}
+# Cleaned Data 
+head(choice_data)
+```
+
+## Modeling
+
+The model of choice for this analysis is the Multinomial Logistic Regression model. This model is an extension of the classic logistic regression model where answers to questions follow two possible outcomes. Meanwhile multinomial works above this case where an answer, while discrete, may have more than two categories. For example, in our pilot survey our price category has values of 25, 50, and 100.
+
+This model also differs from regular regression in the senses that we are trying to maximize likelihood instead of minimizing Mean Square Error as usual. Utilizing the logitR package the following co-efficients were reached for our utility function.
+
+**Eq(1) - MNLR Model** $$ Pr(Y\_{i} = k) = \frac{e^{\beta_{k}*\mathbf{X}_i}}{1+ \sum_{j = 1}^{K - 1}e^{\beta_{j}*\mathbf{X}_i}}, 1\leq k\leq K$$
+
+### Model Summary
+
+```{r}
+summary(model)
+```
+
+From this simple summary we can extract key information that points to a single conclusion. Using an alpha level of 0.05, or even 0.1 not a single parameter is deemed significant. Even though standard error for all parameters fall around 0 for each attribute our P-values tells us all of our responses are junk when making any real conclusions. 
+
+```{r, echo= FALSE}
+#Using Claude to take that data into a dataframe to make some graphs at the 0.05 significance level
+
+# Create data frame with coefficient results
+coef_data <- data.frame(
+  Variable = c("price", "capacity", "range", "typeCard", "typeImplantable", 
+               "typeRing", "compatabilityiOS", "compatabilityiOS/Android"),
+  Estimate = c(0.0054443, -0.0075711, 0.1086555, 0.0013698, 0.2087229, 
+               0.4598485, -0.1642804, -0.3084493),
+  Std_Error = c(0.0040022, 0.0735753, 0.3412924, 0.3377584, 0.3230056, 
+                0.3434822, 0.2951555, 0.3024405),
+  p_value = c(0.1737, 0.9180, 0.7502, 0.9968, 0.5182, 0.1806, 0.5778, 0.3078)
+)
+
+# Calculate 95% confidence intervals
+coef_data$CI_lower <- coef_data$Estimate - 1.96 * coef_data$Std_Error
+coef_data$CI_upper <- coef_data$Estimate + 1.96 * coef_data$Std_Error
+
+# Create attribute groups
+coef_data$Attribute_Group <- case_when(
+  grepl("price|capacity|range", coef_data$Variable) ~ "Survey Variables",
+  grepl("type", coef_data$Variable) ~ "Device Type",
+  grepl("compatability", coef_data$Variable) ~ "Compatibility"
+)
+
+# Compatibility plot
+compat_data <- subset(coef_data, Attribute_Group == "Compatibility")
+p1 <- ggplot(compat_data, aes(x = Variable, y = Estimate)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Compatibility Coefficients", x = "Variables", y = "Coefficient Estimate") +
+  theme_minimal()
+
+# Device Type plot
+device_data <- subset(coef_data, Attribute_Group == "Device Type")
+p2 <- ggplot(device_data, aes(x = Variable, y = Estimate)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Device Type Coefficients", x = "Variables", y = "Coefficient Estimate") +
+  theme_minimal()
+
+# Survey Variables plot
+survey_data <- subset(coef_data, Attribute_Group == "Survey Variables")
+p3 <- ggplot(survey_data, aes(x = Variable, y = Estimate)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Survey Variables Coefficients", x = "Variables", y = "Coefficient Estimate") +
+  theme_minimal()
+
+# Combined plot with facet_wrap
+ggplot(coef_data, aes(x = Variable, y = Estimate)) +
+  geom_point(size = 3) +
+  geom_errorbar(aes(ymin = CI_lower, ymax = CI_upper), width = 0.2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  facet_wrap(~ Attribute_Group, scales = "free_x") +
+  labs(title = "Multinomial Logistic Regression Coefficients", 
+       x = "Variables", y = "Coefficient Estimate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+## Power Analysis
+
+# Changes to Final Survey
+
+# Appendix
