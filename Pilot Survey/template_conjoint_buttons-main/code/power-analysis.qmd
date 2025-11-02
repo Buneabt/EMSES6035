@@ -1,0 +1,183 @@
+---
+title: "Power Analysis"
+format: html
+theme: united
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 7.252,
+    fig.height = 4,
+    comment = "#>",
+    fig.retina = 3
+)
+
+library(tidyverse)
+library(cbcTools)
+```
+
+First, define the attributes and levels:
+
+```{r}
+profiles <- cbc_profiles(
+    type = c("Implantable", "Ring", "Bracelet", "Card"),
+    price = c(25, 50, 100),
+    compatibility = c("iOS", "Android", "iOS/Android"),
+    capacity = c(1,3,5), #No of cards
+    range = c(0.1,0.5,1) #feet
+)
+```
+
+# Random design
+
+Make a randomized full-factorial design:
+
+```{r}
+design_rand <- cbc_design(
+  profiles = profiles,
+  n_resp   = 200, # Number of respondents
+  n_alts   = 3,   # Number of alternatives per question
+  n_q      = 6    # Number of questions per respondent
+)
+
+head(design_rand)
+
+cbc_inspect(design_rand)
+```
+
+Simulate random choices
+
+```{r}
+priors = cbc_priors(
+    profiles,
+    type       = c(1,1,2),
+    price = -0.1,
+    compatibility   = c(-1,1),
+    capacity  = 1,
+    range     = 1
+)
+
+choices_rand <- cbc_choices(
+    design = design_rand,
+    priors = priors
+)
+```
+
+Run power analysis
+
+```{r}
+power_rand <- cbc_power(
+    data = choices_rand,
+    outcome = "choice",
+    obsID = "obsID",
+    n_q = 6,
+    n_breaks = 10,
+    pars    = c("type", "price", "compatibility", "capacity", "range")
+)
+
+power_rand
+```
+
+Here is a summary of the standard errors for each sample size:
+
+```{r}
+plot(
+  power_rand,
+  type = "power"
+)
+
+plot(
+  power_rand,
+  type = "se"
+)
+```
+
+
+
+# Bayesian D-efficient design
+
+Make a Bayesian D-efficient fractional factorial design:
+
+```{r}
+priors = cbc_priors(
+    profiles,
+    type       = c(1,1,2),
+    price = -0.1,
+    compatibility   = c(-1,1),
+    capacity  = 1,
+    range     = 1
+)
+
+design_db_eff <- cbc_design(
+  profiles  = profiles,
+  n_resp    = 200, # Number of respondents
+  n_alts    = 3,   # Number of alternatives per question
+  n_q       = 6,   # Number of questions per respondent
+  n_start   = 10, 
+  n_blocks  = 1,
+  priors = priors, 
+  method = 'modfed'
+)
+
+cbc_inspect(design_db_eff)
+```
+
+Simulate choices
+
+```{r}
+choices_db_eff <- cbc_choices(
+    design = design_db_eff,
+    priors = priors
+)
+```
+
+Run power analysis
+
+```{r}
+power_db_eff <- cbc_power(
+    data = choices_db_eff,
+    outcome = "choice",
+    obsID = "obsID",
+    n_q = 6,
+    n_breaks = 10,
+    pars    = c("type", "price", "compatibility", "capacity", "range")
+)
+
+power_db_eff
+```
+
+Here is a summary of the standard errors for each sample size:
+
+```{r}
+plot(
+  power_db_eff,
+  type = "power"
+)
+
+plot(
+  power_db_eff,
+  type = "se"
+)
+```
+
+# Compare designs
+
+```{r}
+plot_compare_power(
+  Random = power_rand,
+  Modfed = power_db_eff,
+  type = "power"
+)
+
+plot_compare_power(
+  Random = power_rand,
+  Modfed = power_db_eff,
+  type = "se"
+)
+```
