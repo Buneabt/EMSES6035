@@ -33,14 +33,6 @@ model <- readRDS("Model1.rds")
 
 ```
 
-Write your report content here.
-
-Make sure you update the settings in the YAML for your report.
-
-Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, *Italic*, etc.
-
-Here are some section headers to use:
-
 # Abstract
 
 The pilot survey explores consumer preferences in regards to RFID devices in various form factors. The survey consists of six 3-alternative randomized conjoint choices and our multinomial logit model estimates beta values for type, price, compatibility, capacity, and range. However, no coefficients reached any meaningful significance most likely due to the sample size. We interpret these results as evidence that more observations are needed and a few wording/formatting choices likely caused attribute ambiguity. We outline concrete revisions to the survey and a power-analysis-based sample target to improve precision in the full launch. 
@@ -281,6 +273,6 @@ Finally, respondents are directed to the end page where they receive their compl
 
    "The survey is finished. Thank you for your feedback!
 
-  Your completion code is: **`r sd_output('completion_code', type = 'value')`**
+  Your completion code is: **CODE HERE**
 
   You may close the window now."

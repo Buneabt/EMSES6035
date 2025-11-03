@@ -112,9 +112,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
-  <li><a href="#pilot-data-analysis" id="toc-pilot-data-analysis" class="nav-link" data-scroll-target="#pilot-data-analysis">Pilot Data Analysis</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#sample-description" id="toc-sample-description" class="nav-link" data-scroll-target="#sample-description">Sample Description</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
@@ -163,12 +161,9 @@ window.Quarto = {
 <p>Here are some section headers to use:</p>
 <section id="abstract" class="level1">
 <h1>Abstract</h1>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
 <p>The pilot survey explores consumer preferences in regards to RFID devices in various form factors. The survey consists of six 3-alternative randomized conjoint choices and our multinomial logit model estimates beta values for type, price, compatibility, capacity, and range. However, no coefficients reached any meaningful significance most likely due to the sample size. We interpret these results as evidence that more observations are needed and a few wording/formatting choices likely caused attribute ambiguity. We outline concrete revisions to the survey and a power-analysis-based sample target to improve precision in the full launch.</p>
 </section>
-<section id="introduction-1" class="level1">
+<section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>Radio-Frequency Identification (RFID) technologies enable short-range, contactless exchange of information between a passive tag and an active reader. This capability simplifies payments in consumer settings, building access, and digital ID storage across multiple of form factors (e.g., rings, bracelets, cards, and implants). Adoption has remained quite limited, especially for more invasive procedures such as implants due to reasons such as consumer trust.</p>
 <p>We focus on four questions:</p>
@@ -179,9 +174,7 @@ window.Quarto = {
 <li><p>RQ4: What refinements to wording, framing, or visuals are needed before a full launch?</p></li>
 </ul>
 <p>The remainder of the report summarizes the pilot sample, key findings, and the changes we’ll make ahead of the main study.</p>
-</section>
-<section id="pilot-data-analysis" class="level1">
-<h1>Pilot Data Analysis</h1>
+<p><img src="figs/questionexample.jpg" class="img-fluid" alt="Example Question"> # Pilot Data Analysis</p>
 <section id="sample-description" class="level2">
 <h2 class="anchored" data-anchor-id="sample-description">Sample Description</h2>
 <p>Our initial survey was disseminated to peers in the classroom for question. In total our team received 23 responses, while cleaning the survey only 18 responses remained; this will be elaborated further in the data cleaning portion.</p>
@@ -373,9 +366,52 @@ window.Quarto = {
 </section>
 <section id="changes-to-final-survey" class="level1">
 <h1>Changes to Final Survey</h1>
+<p>Based on feedback from our pilot survey, we have decided to make a few changes to enhance our final survey. The first and easiest change we had to make was replacing the implant image. We felt that the original image used for the pilot survey did not accurately convey what the implant was. The first image made the implant look larger, scarier, and it was not clear how it would be used. The new image, while not showing the implant in detail, depicts it in a hand that displays its positioning and relative size far better. Another surface-level change suggested by a peer was to add an informational page to the survey, briefly explaining RFID technology and the idea of an implant. Our changes will not just be surface-level, because as we concluded in our model analysis, none of our attributes stood out as significant. We believe that this is due to a lack of people taking our survey. We do not believe that we will be able to reach the necessary sample size required to get accurate and insightful data using our current question design. To fix this, we are going us the Modfed experimental design as mentioned in our power analysis.</p>
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
+<p>Our survey begins with a statement describing the survey:</p>
+<p>“This survey asks about your preferences for <strong>RFID technologies</strong> used for payment and identification — such as <strong>rings</strong>, <strong>bracelets</strong>, <strong>cards</strong>, or <strong>implants</strong>.”</p>
+<p>We continue with a question that aims to gain consent from the respondent:</p>
+<p>“This survey is being conducted by students at The George Washington University. We will not be collecting any identifying data, such as your name or address. The survey will take about 10–15 minutes. Your participation is voluntary and you may stop at any time.”</p>
+<p>“I am age 18 or older” “Yes” “No”</p>
+<p>“I have read and understand the above information”, “Yes” “No”</p>
+<p>We then attempt to gauge respondents familiarity with RFID technology:</p>
+<p>“If you are <strong>interested in alternatives to carrying a wallet</strong> (for payments or ID) using RFID technology, please select <strong>Interested</strong>.<br>
+If you are <strong>not interested at all</strong>, select <strong>Not interested</strong>.”</p>
+<p>“Overall, how interested are you in using RFID for payments or identification?”, “Interested” “Not interested”</p>
+<p>Next, we describe the different attributes:</p>
+<p>“Now that you’ve shared a bit about yourself, consider a scenario in which you can choose an <strong>RFID technology</strong> from a set of options with different attributes.</p>
+<p>Price</p>
+<p>The cost (USD) you would pay for the device.</p>
+<p>Range</p>
+<p>How far (in feet) a scanner can detect the RFID signal (e.g., 0.1, 0.5, or 1 ft).</p>
+<p>Compatibility</p>
+<p>Which phone ecosystem the device pairs with: <strong>iOS</strong>, <strong>Android</strong>, or <strong>Both</strong>.</p>
+<p>Storage</p>
+<p>How many digital ID tags can be stored (e.g., <strong>1</strong>, <strong>3</strong>, or <strong>5 Tags</strong>).</p>
+<p>Type / Location</p>
+<p>We will show several <strong>form factors</strong>: - <strong>Bracelet</strong> or <strong>Ring</strong> (wearables) - <strong>Card</strong> (wallet alternative) - <strong>Implant</strong> (subdermal location such as <strong>hand</strong>, <strong>wrist</strong>, or <strong>finger</strong>)”</p>
+<p>The next step is to introduce our survey:</p>
+<p>“On the next pages, you’ll see three RFID options. Choose the one you most prefer.</p>
+<p>We will now show you 6 sets of choice questions starting on the next page.”</p>
+<p>Next, we go into the survey itself. The below image is an example of a question respondents would see:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/questionexample.jpg" class="img-fluid figure-img"></p>
+<figcaption>Example Question</figcaption>
+</figure>
+</div>
+<p>The next step is to gather a little more information regarding the respondents:</p>
+<p>“We’re almost done! We’d just like to ask just a few more questions about you which we will only use for analyzing our survey data.”</p>
+<p>“(1) In what year were you born?”</p>
+<p>“(2) What is your current gender identity?”</p>
+<p>“Please let us know if you have any other thoughts or feedback on this survey.</p>
+<p>Your feedback will help us make future improvements :)”</p>
+<p>Finally, respondents are directed to the end page where they receive their completion code:</p>
+<p>“The survey is finished. Thank you for your feedback!</p>
+<p>Your completion code is: <strong>CODE HERE</strong></p>
+<p>You may close the window now.”</p>
 </section>
 
 </main>
