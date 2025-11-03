@@ -279,6 +279,96 @@ window.Quarto = {
 </section>
 <section id="power-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="power-analysis">Power Analysis</h2>
+<p>We based our power analysis on the following priors:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Attribute</th>
+<th>Level/Category</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Type</strong></td>
+<td>Implantable</td>
+<td>Baseline</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Ring</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Bracelet</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Card</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><strong>Price</strong></td>
+<td>—</td>
+<td>-0.1</td>
+</tr>
+<tr class="even">
+<td><strong>Compatibility</strong></td>
+<td>iOS</td>
+<td>Baseline</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Android</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>iOS/Android</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><strong>Capacity</strong></td>
+<td>—</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><strong>Range</strong></td>
+<td>—</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Our team has concluded that our sample size should be approximately 75 respondents. This decision is derived from the following plots.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/poweranalysis.jpg" class="img-fluid figure-img"></p>
+<figcaption>Power Analysis</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/standarderror.jpg" class="img-fluid figure-img"></p>
+<figcaption>Standard Error</figcaption>
+</figure>
+</div>
+<p>At 50 respondents, all of the attributes are above the 80% power threshold, but several of the attributes are between 0.35 to 0.45. At n = 75, not only are all attributes high above the 80%, but all attributes are below 0.35. While we may be able to obtain more precise measurements if we increase the sample size, the rate of return decreases significantly as we increase n after n = 75.</p>
+<p>Our team also plans to use the ‘modfed’ algorithm instead of the random algorithm. The plots below show the results of our comparison between those two diagrams.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/powercomp.jpg" class="img-fluid figure-img"></p>
+<figcaption>Power Comparison</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figs/standarderrorcomp.jpg" class="img-fluid figure-img"></p>
+<figcaption>Standard Error Comparison</figcaption>
+</figure>
+</div>
+<p>The majority of the plots show that the Modfed design is superior to the random design in both statistical power and standard error. There are a few exceptions in statistical power, but overall, the Modfed design will work better for our survey than the random design.</p>
 </section>
 </section>
 <section id="changes-to-final-survey" class="level1">
