@@ -43,9 +43,30 @@ Here are some section headers to use:
 
 # Abstract
 
+
 # Introduction
 
-# Survey Design
+=======
+The pilot survey explores consumer preferences in regards to RFID devices in various form factors. The survey consists of six 3-alternative randomized conjoint choices and our multinomial logit model estimates beta values for type, price, compatibility, capacity, and range. However, no coefficients reached any meaningful significance most likely due to the sample size. We interpret these results as evidence that more observations are needed and a few wording/formatting choices likely caused attribute ambiguity. We outline concrete revisions to the survey and a power-analysis-based sample target to improve precision in the full launch. 
+
+# Introduction
+
+Radio-Frequency Identification (RFID) technologies enable short-range, contactless exchange of information between a passive tag and an active reader. This capability simplifies payments in consumer settings, building access, and digital ID storage across multiple of form factors (e.g., rings, bracelets, cards, and implants). Adoption has remained quite limited, especially for more invasive procedures such as implants due to reasons such as consumer trust. 
+
+We focus on four questions:
+
+- RQ1: What factors most influence willingness to adopt RFID devices?
+
+- RQ2: Do people show a baseline reluctance toward implants relative to non-invasive form factors?
+
+- RQ3: What kinds of benefits (e.g., convenience or flexibility) seem to offset reluctance?
+
+- RQ4: What refinements to wording, framing, or visuals are needed before a full launch?
+
+The remainder of the report summarizes the pilot sample, key findings, and the changes we’ll make ahead of the main study.
+
+
+
 
 # Pilot Data Analysis
 
@@ -152,4 +173,6 @@ ggplot(coef_data, aes(x = Variable, y = Estimate)) +
 
 # Changes to Final Survey
 
+
 # Appendix
+
