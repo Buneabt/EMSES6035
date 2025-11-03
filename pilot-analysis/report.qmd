@@ -61,6 +61,17 @@ We focus on four questions:
 
 The remainder of the report summarizes the pilot sample, key findings, and the changes we’ll make ahead of the main study.
 
+# Survey Design
+
+The first eligibility question screens our population would be “Are you interested in an alternative to carrying your wallet for payment options and identification?” We hope that this screening question will filter out people who are not going to answer the survey seriously. 
+There are no specific demographics we are interested in, as digital wearables are used by all ages, ethnicities, and by most religions (some prohibit modern technology). 
+As of now, our educational page provides context for our attributes so users understand what is being asked of them. 
+The attributes chosen encompass the things we felt people would look for while shopping for an RFID device and are as follows: Type, Price, Compatibility, Capacity, and Range. 
+Types are included because we are interested in seeing what form respondents would want. 
+The price is because we need to know how we need to price our device. 
+Compatibility is important as we want to see if people will prioritize their existing ecosystems. 
+We also want to know whether range and storage amount play a factor in determining a product's attractiveness. They help us better understand what our respondents are looking for and what drives interest in a device. 
+The survey gives the respondent six questions with three random profiles to choose from. 
 
 
 
