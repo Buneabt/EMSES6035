@@ -46,7 +46,6 @@ Here are some section headers to use:
 
 # Introduction
 
-=======
 The pilot survey explores consumer preferences in regards to RFID devices in various form factors. The survey consists of six 3-alternative randomized conjoint choices and our multinomial logit model estimates beta values for type, price, compatibility, capacity, and range. However, no coefficients reached any meaningful significance most likely due to the sample size. We interpret these results as evidence that more observations are needed and a few wording/formatting choices likely caused attribute ambiguity. We outline concrete revisions to the survey and a power-analysis-based sample target to improve precision in the full launch. 
 
 # Introduction
