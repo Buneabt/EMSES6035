@@ -64,6 +64,7 @@ The remainder of the report summarizes the pilot sample, key findings, and the c
 
 
 
+![Example Question](figs/questionexample.jpg)
 # Pilot Data Analysis
 
 ## Sample Description
