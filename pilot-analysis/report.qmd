@@ -172,6 +172,10 @@ ggplot(coef_data, aes(x = Variable, y = Estimate)) +
 
 # Changes to Final Survey
 
+Based on feedback from our pilot survey, we have decided to make a few changes to enhance our final survey. The first and easiest change we had to make was replacing the implant image. We felt that the original image used for the pilot survey did not accurately convey what the implant was. The first image made the implant look larger, scarier, and it was not clear how it would be used. The new image, while not showing the implant in detail, depicts it in a hand that displays its positioning and relative size far better. Another surface-level change suggested by a peer was to add an informational page to the survey, briefly explaining RFID technology and the idea of an implant. 
+Our changes will not just be surface-level, because as we concluded in our model analysis, none of our attributes stood out as significant. We believe that this is due to a lack of people taking our survey. We do not believe that we will be able to reach the necessary sample size required to get accurate and insightful data using our current question design. To fix this, we are going us the Modfed experimental design as mentioned in our power analysis. 
+
+
 
 # Appendix
 
