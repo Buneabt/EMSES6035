@@ -170,6 +170,38 @@ ggplot(coef_data, aes(x = Variable, y = Estimate)) +
 
 ## Power Analysis
 
+We based our power analysis on the following priors:
+
+| Attribute            | Level/Category     | Value     |
+|----------------------|--------------------|-----------|
+| **Type**             | Implantable        | Baseline  |
+|                      | Ring               | 1         |
+|                      | Bracelet           | 1         |
+|                      | Card               | 2         |
+| **Price**            | —                  | -0.1      |
+| **Compatibility**    | iOS                | Baseline  |
+|                      | Android            | -1        |
+|                      | iOS/Android        | 1         |
+| **Capacity**         | —                  | 1         |
+| **Range**            | —                  | 1         |
+
+Our team has concluded that our sample size should be approximately 75 respondents. This decision is derived from the following plots.
+
+![Power Analysis](figs/poweranalysis.jpg)
+
+![Standard Error](figs/standarderror.jpg)
+
+At 50 respondents, all of the attributes are above the 80% power threshold, but several of the attributes are between 0.35 to 0.45. At n = 75, not only are all attributes high above the 80%, but all attributes are below 0.35. While we may be able to obtain more precise measurements if we increase the sample size, the rate of return decreases significantly as we increase n after n = 75. 
+
+Our team also plans to use the ‘modfed’ algorithm instead of the random algorithm. The plots below show the results of our comparison between those two diagrams.
+
+![Power Comparison](figs/powercomp.jpg)
+
+![Standard Error Comparison](figs/standarderrorcomp.jpg)
+
+The majority of the plots show that the Modfed design is superior to the random design in both statistical power and standard error. There are a few exceptions in statistical power, but overall, the Modfed design will work better for our survey than the random design.
+
+
 # Changes to Final Survey
 
 
