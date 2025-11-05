@@ -25,8 +25,8 @@ data <- clean_names(data)
 model <- logitr(
     data = data,
     outcome = "choice",
-    obsID = "obsID",
-    pars = c("price", "capacity", "range", "type_implantable", "type_ring", "type_bracelet", "compatabilityi_os_android", "compatabilityi_os")
+    obsID = "obs_id",
+    pars = c("price", "capacity", "range", "type_implantable", "type_ring", "type_bracelet", "compatabilityi_os_android","compatabilityi_os")
 )
 
 # View summary of results

@@ -17,12 +17,12 @@ summary(model1)
 baseline <- data.frame(
     alt_id = c(1, 2, 3),
     obs_id = c(1, 1, 1),
-    price = c(25,25,25),
+    price = c(50,50,50),
     capacity  = c(1,1,1),
     range  = c(1,1,1),
     type_implantable  = c(1,0,0),
     type_ring  = c(0,1,0),
-    type_bracelet  = c(0,0,1),
+    type_bracelet  = c(0,0,0),
     compatabilityi_os_android  = c(1,1,1),
     compatabilityi_os = c(0,0,0)
 )
