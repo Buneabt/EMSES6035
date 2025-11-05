@@ -15,58 +15,30 @@ summary(model1)
 
 # Create a set of alternatives for which to simulate shares
 baseline <- data.frame(
-    altID = c(1, 2, 3),
-    obsID = c(1, 1, 1),
-    price = c(25, 25, 25),
-    capacity = c(1, 1, 1),
-    compatabilityiOS = c(1,1,1),
-    compatabilityi0S/Android = c(0,0,0),    
-    range = c(3,3,3),
-    typeRing = c(0,0,1),
-    typeCard = c(0,1,0),
-    typeImplantable = c(1,0,0)
+    alt_id = c(1, 2, 3),
+    obs_id = c(1, 1, 1),
+    price = c(25,25,25),
+    capacity  = c(1,1,1),
+    range  = c(1,1,1),
+    type_implantable  = c(1,0,0),
+    type_ring  = c(0,1,0),
+    type_bracelet  = c(0,0,1),
+    compatabilityi_os_android  = c(1,1,1),
+    compatabilityi_os = c(0,0,0)
 )
 
-#pars = c("capacity", "range", "type", "compatability")
 
-# Columns are attributes, rows are alternatives
-baseline
+# Check the column names match your model
+names(baseline)
 
 # Use the predict() function to compute the probabilities
 sim_mnl <- predict(
     model1,
     newdata = baseline,
-    obsID = 'obsID',
+    obsID = 'obs_id',
     level = 0.95,
     interval = 'confidence',
-    returnData = TRUE # This returns your data along with predicted values
+    returnData = TRUE
 )
 
 sim_mnl
-
-# -----------------------------------------------------------------------------
-## Multiple simulations using the mnl model
-#
-## Read in market scenarios
-#scenarios <- read_csv(here('data', 'scenarios.csv'))
-#head(scenarios)
-#
-## Use the predict() function to compute the probabilities
-#sim_mnl_multi <- predict(
-#    model1,
-#    newdata = scenarios,
-#    obsID = 'obsID',
-#    level = 0.95,
-#    interval = 'confidence',
-#    returnData = TRUE
-#)
-#
-#head(sim_mnl_multi)
-#
-## Save simulations
-#save(
-#    sim_mnl,
-#    sim_mnl_multi,
-#    file = here("sims", "mnl.RData")
-#)
-#

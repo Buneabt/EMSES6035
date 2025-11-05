@@ -11,15 +11,22 @@ options(dplyr.width = Inf) # So you can see all of the columns
 
 # -----------------------------------------------------------------------------
 # Load the data set:
-data <- read_csv(here("data", "choice_data.csv"))
+data <- read_csv(here("data", "choice_data.csv")) %>% 
+    select(-session_id)
 head(data)
+
+
+data <- cbcTools::cbc_encode(data, coding = 'dummy')
+
+data <- clean_names(data)
+
 
 # Estimate MNL model
 model <- logitr(
     data = data,
     outcome = "choice",
     obsID = "obsID",
-    pars = c("price", "capacity", "range", "type", "compatability")
+    pars = c("price", "capacity", "range", "type_implantable", "type_ring", "type_bracelet", "compatabilityi_os_android", "compatabilityi_os")
 )
 
 # View summary of results
