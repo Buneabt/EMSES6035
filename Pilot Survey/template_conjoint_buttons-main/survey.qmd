@@ -98,6 +98,24 @@ sd_next()
 
 :::
 
+::: {.sd_page id=needles}
+# Grouping Question
+
+```{r}
+sd_question(
+  type  = 'mc',
+  id    = 'needles',
+  label = "Are you afraid of needles?",
+  option = c('Yes' = 'blue', 'No' = 'red')
+)
+```
+
+```{r}
+sd_next()
+```
+
+:::
+
 ::: {.sd_page id=educational}
 # Educational Page
 
