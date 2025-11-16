@@ -37,7 +37,7 @@ image_names <- data.frame(
     'Bracelet.jpg',
     'Card.jpg',
     'Ring.jpg',
-    'Implant.jpg')
+    'ImplantNew.jpg')
 )
 design <- design %>%
   left_join(image_names, by = "type")
