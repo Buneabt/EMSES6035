@@ -13,8 +13,9 @@ capture_metadata: yes
 required_questions:
 - consent_age
 - consent_understand
-- rfid_interest
+- rfid_familiar
 - screenout
+- needles
 - cbc_q1
 - cbc_q2
 - cbc_q3

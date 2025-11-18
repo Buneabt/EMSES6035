@@ -1,0 +1,10 @@
+name: RFID_Survey_Final
+title:
+username: bunea
+account: bunea
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16082883
+bundleId: 11187392
+url: https://bunea.shinyapps.io/RFID_Survey_Final/
+version: 1

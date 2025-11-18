@@ -26,7 +26,7 @@ library(surveydown)
 ```
 
 ::: {.sd_page id=welcome}
-# RFIDInMe Explording the field of RFID devices
+# RFIDInMe Exploring the field of RFID devices
 
 This survey asks about your preferences for **RFID technologies** used for payment and identification — such as **rings**, **bracelets**, **cards**, or **implants**.
 
@@ -38,7 +38,7 @@ sd_next()
 ::: {.sd_page id=consent}
 # Consent
 
-This survey is being conducted by students at The George Washington University. We will not be collecting any identifying data, such as your name or address. The survey will take about 10–15 minutes. Your participation is voluntary and you may stop at any time.
+This survey is being conducted by students at The George Washington University. We will not be collecting any identifying data, such as your name or address. The survey will take about 5 minutes. Your participation is voluntary and you may stop at any time.
 
 ```{r}
 sd_question(
@@ -64,12 +64,52 @@ sd_next()
 
 :::
 
-::: {.sd_page id=favorite_fruit}
+::: {.sd_page id=RFID_Familiarity}
 # RFID Familiarity
 
 ```{r}
 sd_question(
+  type  = 'mc',
+  id    = 'rfid_familiar',
+  label = "Are you familiar with RFID (Radio Frequency Identification) technology?",
+  option = c('Yes' = 'yes','No' = 'no')
+)
 ```
+
+```{r}
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=rfid_info}
+# What is RFID Technology?
+
+**RFID (Radio Frequency Identification)** is a wireless technology that uses electromagnetic fields to automatically identify and track tags attached to objects, animals, or people.
+
+## How RFID Works
+- **RFID tags** contain electronically stored information
+- **RFID readers** can capture data from tags without requiring direct contact or line-of-sight scanning
+- Communication happens through **radio waves** at various frequencies
+
+## Common RFID Applications You May Already Use
+- **Contactless payment cards** (tap-to-pay credit/debit cards)
+- **Key fobs** for building or vehicle access
+- **Transit cards** for public transportation
+- **Pet microchips** for identification
+
+## RFID vs. Similar Technologies
+- **Unlike barcodes**: No line-of-sight required
+- **Unlike NFC**: Can work at longer distances (up to several feet)
+- **Unlike Bluetooth**: No pairing or active connection needed
+
+## Benefits of RFID
+- **Convenience**: Quick, contactless transactions
+- **Security**: Encrypted data transmission
+- **Durability**: Works through materials like fabric or plastic
+- **Speed**: Near-instantaneous data transfer
+
+Now that you understand RFID technology, let's continue with the survey!
 
 ```{r}
 sd_next()
@@ -98,7 +138,7 @@ sd_next()
 
 :::
 
-::: {.sd_page id=needles}
+::: {.sd_page id=needles_page}
 # Grouping Question
 
 ```{r}
@@ -149,7 +189,7 @@ sd_next()
 ::: {.sd_page id=cbc_intro}
 # Conjoint Question Intro
 
-On the next pages, you’ll see three RFID options. Choose the one you most prefer.
+On the next pages, you'll see three RFID options. Choose the one you most prefer.
 
 We will now show you 6 sets of choice questions starting on the next page.
 
@@ -245,15 +285,19 @@ We're almost done! We'd just like to ask just a few more questions about you whi
 
 ::: {style="width:500px; margin: 0 auto;"}
 ```{r}
+year_options <- setNames(as.character(1980:2015), as.character(1980:2015))
+
 sd_question(
   type   = 'select',
   id     = 'year_of_birth',
   label  = "(1) In what year were you born?",
-  option = years
+  option = year_options
 )
 ```
 
 ```{r}
+genders <- c("Man" = "man", "Woman" = "woman", "Non-binary" = "nonbinary", "Other" = "other", "Prefer Not to Answer" = "prefer_not_to_answer")
+
 sd_question(
   type   = 'select',
   id     = 'gender',
@@ -270,6 +314,7 @@ sd_question(
   "Please let us know if you have any other thoughts or feedback on this survey.
   
   Your feedback will help us make future improvements :)"
+)
 ```
 
 ```{r}

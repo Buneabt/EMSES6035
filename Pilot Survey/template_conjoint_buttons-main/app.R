@@ -36,7 +36,7 @@ library(readr)
 # doing local testing. Once you're ready to collect survey responses, set
 # ignore = FALSE or just delete this argument.
 
-db <- sd_db_connect(ignore = FALSE)
+db <- sd_db_connect()
 
 # UI setup --------------------------------------------------------------------
 
@@ -61,6 +61,9 @@ server <- function(input, output, session) {
     filter(respID == respondentID) %>%
     mutate(image = paste0("images/",image))
 
+  # Define years and genders for demographics (you may need to adjust these)
+  years <- setNames(as.character(1940:2005), as.character(1940:2005))
+  genders <- c("Male" = "male", "Female" = "female", "Non-binary" = "nonbinary", "Prefer not to say" = "prefer_not_to_say")
 
   # Function to create the question labels based on design values
   make_cbc_options <- function(df) {
@@ -155,13 +158,20 @@ server <- function(input, output, session) {
 
   # Define conditional skip logic
   sd_skip_if(
-    input$screenout == "blue" ~ "end_screenout",
+    # Consent logic
     input$consent_age == "no" ~ "end_consent",
-    input$consent_understand == "no" ~ "end_consent"
+    input$consent_understand == "no" ~ "end_consent",
+
+    # RFID familiarity logic - if familiar, skip the info page
+    input$rfid_familiar == "yes" ~ "screening",
+
+    # Screening logic
+    input$screenout == "blue" ~ "end_screenout"
   )
 
   # Run surveydown server and define database
   sd_server(db = db, all_questions_required = TRUE)
 }
+
 # Launch the app
 shiny::shinyApp(ui = ui, server = server)
