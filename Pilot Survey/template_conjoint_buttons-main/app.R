@@ -166,7 +166,7 @@ server <- function(input, output, session) {
     input$rfid_familiar == "yes" ~ "screening",
 
     # Screening logic
-    input$screenout == "blue" ~ "end_screenout"
+    #input$screenout == "blue" ~ "end_screenout"
   )
 
   # Run surveydown server and define database
