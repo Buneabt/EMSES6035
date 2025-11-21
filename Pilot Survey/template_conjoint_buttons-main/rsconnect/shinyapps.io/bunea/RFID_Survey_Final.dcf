@@ -5,6 +5,6 @@ account: bunea
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 16082883
-bundleId: 11187392
+bundleId: 11213238
 url: https://bunea.shinyapps.io/RFID_Survey_Final/
 version: 1
