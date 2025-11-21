@@ -163,7 +163,7 @@ server <- function(input, output, session) {
     input$consent_understand == "no" ~ "end_consent",
 
     # RFID familiarity logic - if familiar, skip the info page
-    input$rfid_familiar == "yes" ~ "screening",
+    input$rfid_familiar == "yes" ~ "screening"
 
     # Screening logic
     #input$screenout == "blue" ~ "end_screenout"
