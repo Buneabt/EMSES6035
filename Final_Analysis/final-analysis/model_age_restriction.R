@@ -26,7 +26,7 @@ model <- logitr(
     data = data,
     outcome = "choice",
     obsID = "obs_id",
-    pars = c("price", "capacity", "range", "type_bracelet", "type_implantable", "type_ring", "compatability_android", "compatabilityi_os")
+    pars = c("price", "capacity", "range", "type_card", "type_implantable", "type_ring", "compatabilityi_os","compatabilityi_os_android")
 )
 
 # View summary of results

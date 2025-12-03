@@ -21,7 +21,7 @@ data_raw <- read_csv(here("data", "FinalSurveyV2_2025-12-03.csv"))
 
 # Compute time values for each page
 data <- data_raw %>%
-    #filter(year_of_birth >= 1995) %>% 
+    #filter(year_of_birth >= 1990) %>% 
     mutate(
         # Compute time through whole survey
         time_start = ymd_hms(time_start, tz = "EST"),
