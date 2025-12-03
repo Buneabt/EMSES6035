@@ -34,8 +34,7 @@ data <- data_raw %>%
     ) %>%
     # Select important columns
     select(
-        session_id, time_total, time_cbc_total, respID, screenout, starts_with("cbc")
-        #apple_knowledge_1:feedback
+        session_id, time_total, time_cbc_total, respID, starts_with("cbc")
     )
 
 head(data)
@@ -44,11 +43,6 @@ head(data)
 
 # Filter out bad responses ---------
 
-nrow(data)
-
-# Drop people who got screened out
-data <- data %>%
-    filter(!is.na(screenout), screenout == "red")
 nrow(data)
 
 # Drop anyone who didn't complete all choice questions

@@ -1,11 +1,28 @@
 # ! JUST READ - don't change the content of this file
-# Server settings with YAML header values and defaults
+# Server settings with final resolved parameters
+# (includes sd_server() parameters, YAML header, and defaults)
 use_cookies: no
 auto_scroll: no
 rate_survey: no
 all_questions_required: yes
+start_page: welcome
 system_language: en
 highlight_unanswered: yes
 highlight_color: blue
 capture_metadata: yes
+required_questions:
+- consent_age
+- consent_understand
+- rfid_familiar
+- screenout
+- needles
+- cbc_q1
+- cbc_q2
+- cbc_q3
+- cbc_q4
+- cbc_q5
+- cbc_q6
+- year_of_birth
+- gender
+- feedback
 

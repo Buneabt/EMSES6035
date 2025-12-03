@@ -11,7 +11,7 @@ options(dplyr.width = Inf) # So you can see all of the columns
 
 # -----------------------------------------------------------------------------
 # Load the data set:
-data <- read_csv(here("data", "choice_data.csv")) %>% 
+data <- read_csv(here("data", "rfid_simulated_choices.csv")) %>% 
     select(-session_id)
 head(data)
 
@@ -26,7 +26,7 @@ model <- logitr(
     data = data,
     outcome = "choice",
     obsID = "obs_id",
-    pars = c("price", "capacity", "range", "type_ring", "type_implantable", "type_card", "compatability_android", "compatabilityi_os")
+    pars = c("price", "capacity", "range", "type_ring", "type_implant", "type_card", "compatability_android", "compatabilityi_os")
 )
 
 # View summary of results
