@@ -1,0 +1,86 @@
+---
+title: "Title"
+subtitle: "If you want a subtitle, put it here"
+author: Update with your name
+date: October 27, 2023 - Update with today's date
+format:
+  html:
+    toc: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(
+    warning = FALSE,
+    message = FALSE,
+    fig.path = "figs/",
+    fig.width = 7.252,
+    fig.height = 4,
+    comment = "#>",
+    fig.retina = 3
+)
+
+# Load libraries here
+library(tidyverse)
+library(here)
+```
+
+Write your report content here.
+
+Make sure you update the settings in the YAML for your report. 
+
+Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, _Italic_, etc.
+
+Here are some section headers to use: 
+
+Write your report content here.
+
+Make sure you update the settings in the YAML for your report.
+
+Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, _Italic_, etc.
+
+Here are some section headers to use:
+
+
+
+# Abstract
+
+
+
+
+# Introduction
+
+
+
+
+# Survey Design
+
+
+
+
+# Data Analysis
+
+
+
+
+# Results
+
+
+
+# Final Recommendations and Conclusions
+
+
+
+
+# Limitations
+
+
+
+
+
+# Appendix
+
+
+
