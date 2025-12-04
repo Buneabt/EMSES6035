@@ -7,9 +7,9 @@ set.seed(123)
 
 # Define profiles
 profiles <- cbc_profiles(
-    type         = c('Implant', 'Ring', 'Bracelet', 'Card'),
+    type         = c('Bracelet', 'Ring', 'Card', 'Implant'),
     price        = c(25, 50, 100), # $
-    compatability = c('iOS', 'Android', 'Both'),
+    compatability = c('Both', 'Android', 'iOS'),
     capacity     = c(1, 3, 5), # kilobytes
     range        = c(1, 3, 5)  # feet
 )
@@ -17,11 +17,11 @@ profiles <- cbc_profiles(
 # Define priors
 priors <- cbc_priors(
     profiles = profiles,
-    price = -0.05,
-    type = c(-1, 2, 1),  # Ring, Implant, Card vs Bracelet
-    compatability = c(-1, 1),  # Android, iOS vs Both
-    capacity = 1.5,  # 3KB, 5KB vs 1KB
-    range = 1  # 3ft, 5ft vs 1ft
+    price = -0.5,
+    type = c(1.75, 1, 0.5),  # Ring, Bracelet, Implant vs Card
+    compatability = c(-2, 0.5),  # Android, Both vs iOS
+    capacity = 1.5,  
+    range = 1  
 )
 
 # Generate design
