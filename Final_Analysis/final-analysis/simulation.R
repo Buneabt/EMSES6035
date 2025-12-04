@@ -17,11 +17,11 @@ profiles <- cbc_profiles(
 # Define priors
 priors <- cbc_priors(
     profiles = profiles,
-    price = -0.02,
-    type = c(-2.8, 0.4, 0.9),  # Implant, Ring, Card vs Bracelet
-    compatability = c(-0.3, 1.9),  # iOS, Both vs Android
-    capacity = c(0.7, 1.1),  # 3KB, 5KB vs 1KB
-    range = c(0.9, 1.4)  # 3ft, 5ft vs 1ft
+    price = -0.05,
+    type = c(-1, 2, 1),  # Ring, Implant, Card vs Bracelet
+    compatability = c(-1, 1),  # Android, iOS vs Both
+    capacity = 1.5,  # 3KB, 5KB vs 1KB
+    range = 1  # 3ft, 5ft vs 1ft
 )
 
 # Generate design
