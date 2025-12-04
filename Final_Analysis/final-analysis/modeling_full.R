@@ -15,6 +15,11 @@ data <- read_csv(here("data", "rfid_simulated_choices.csv")) %>%
     select(-session_id)
 head(data)
 
+#data <- read_csv(here("data", "choice_data.csv")) %>% 
+#    select(-session_id)
+#head(data)
+
+
 
 data <- cbcTools::cbc_encode(data, coding = 'dummy')
 
