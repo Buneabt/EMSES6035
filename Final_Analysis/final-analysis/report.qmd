@@ -1,8 +1,8 @@
 ---
-title: "Title"
-subtitle: "If you want a subtitle, put it here"
-author: Update with your name
-date: October 27, 2023 - Update with today's date
+title: "Final Analysis for RFIDinMe"
+subtitle: "Investingating the use of alternate RFID devices"
+author: Abdullah, Bogdan, Collin, Jeb
+date: December 7, 2025 - Update with today's date
 format:
   html:
     toc: true
@@ -27,60 +27,83 @@ library(tidyverse)
 library(here)
 ```
 
-Write your report content here.
-
-Make sure you update the settings in the YAML for your report. 
-
-Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, _Italic_, etc.
-
-Here are some section headers to use: 
-
-Write your report content here.
-
-Make sure you update the settings in the YAML for your report.
-
-Use [markdown](https://commonmark.org/help/) for formatting, e.g.: **Bold**, _Italic_, etc.
-
-Here are some section headers to use:
-
-
 
 # Abstract
 
-
-
-
 # Introduction
 
+Currently RFID devices are becoming ever more prevalent in common day use. As students, your ID card allows you to tap into buildings at will. For commuters, a simple tap and your fare is paid for. In this case study our team aimed to create an RFID device that met consumer needs by providing as vast array of attributes to choose from. A wildcard sub attribute of choice was also added which was the additional of implantable RFID devices.
 
+These types of devices are small, non-toxic, pill shaped devices that can be self implanted into your hand and can act as a conventional RFID device as described above. This is commonly known as Bio-Hacking and an X-ray of this can be seen below in Figure 1 showing a pill like device implanted in the hand of an individual.
 
+![Figure 1 shows an example of an implantable RFID device](images/ImplantNew.jpg){fig-align="center" width="238"}
+
+Further attributes for this survey are things such as price, compatibility, capacity, and range which will be discussed further in the survey design section of this survey.
 
 # Survey Design
 
+## Final Survey Layout
 
+Our survey was split into three major components:
 
+1.  **Survey Introduction**
+
+    This portion of the survey filtered out respondents under the age of 18 and informed individuals if they weren't already knowledge about this field of devices using a hidden page that described what the devices are and how many people already use them in the real world.
+
+2.  **Survey Questions**
+
+    Here respondents were asked 6 questions pulled from our choice design. Each of which having three options which contained in of itself 5 major attributes: The Type of Device, Price, Compatibility, Tag capacity, and the range of the device. The levels of each attributes can be found in the table below:
+
+3.  **Survey Demographics**
+
+    After completing all survey content users are asked to complete certain questions about their demographics such as year and gender. Other things such as survey feedback we're also asked but are not crucial to analysis.
+
+| Attribute Name |              Levels               | Unit             |
+|:--------------:|:---------------------------------:|------------------|
+|  Device Type   | Card, Ring, Bracelet, Implantable | N/A              |
+|     Price      |         \$25, \$50, \$75          | USD              |
+| Compatibility  |        iOs, Android, Both         | Operating System |
+|  Tag Capacity  |              1, 3, 5              | kilobytes        |
+|  Device Range  |              1, 3, 5              | ft               |
+
+: List of Final Survey Attributes
+
+## Differences from the Pilot
+
+Large differences came from the amount of weed out questions where now the survey only contains the age verification question. Another major difference is the lack of images within the survey but this has now been populated with images accurately depicting the available options. See Appendix 9 for an example of this.
 
 # Data Analysis
 
-
-
-
 # Results
 
-
+Mention how the first thing to verify is that price should be negative to verify.
 
 # Final Recommendations and Conclusions
 
-
-
-
 # Limitations
-
-
-
-
 
 # Appendix
 
+This appendix is split into 11 sections representing each page of the conjoint survey include ONE conjoint question out of the 6.
 
+![Appendix 1 shows the survey introduction apge](images/Page1.jpeg)
 
+![Appendix 2 Shows survey consent pages where our one and only screenout question is located](images/Page2.jpeg)
+
+![Appendix 3 Asks about familiarity with RFID technology](images/Page3.jpeg)
+
+![Appendix 4 If selecting no to Appendix 3 you are taken to this page](images/Page4.jpeg)
+
+![Appendix 5 Is listed as a screening question but is not](images/Page5.jpeg)
+
+![Appendix 6 This question is for grouping as it allows to see if people not afraid of needles are more open to the idea of implantables](images/Page6.jpeg)
+
+![Appendix 7 is the educational page regarding the parameters of the conjoin questions](images/Page7.jpeg)
+
+![Appendix 8 Is the introduction preparing users for the next round of questions](images/Page8.jpeg)
+
+![Appendix 9 Shows an example of a conjoint question](images/Page9.jpeg)
+
+![Appendix 10 Is the demographics page asking about age and gender](images/Page10.jpeg)
+
+![Appendix 11 is the end page for the survey](images/Page11.jpeg)
