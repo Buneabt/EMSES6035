@@ -18,7 +18,7 @@ profiles <- cbc_profiles(
 priors <- cbc_priors(
     profiles = profiles,
     price = -0.5,
-    type = c(2, 1, -0.75),  # Ring, Bracelet, Implant vs Card;
+    type = c(2.6, 1.5, -0.5),  # Ring, Bracelet, Implant vs Card
     compatability = c(-2, 1),  # Android, Both vs iOS
     capacity = 1.5,  
     range = 1  
@@ -27,7 +27,7 @@ priors <- cbc_priors(
 # Generate design #Set respondents to 161 for unafraid, 49 for afraid
 design <- cbc_design(
     profiles = profiles,
-    n_resp   = 210,
+    n_resp   = 161,
     n_alts   = 3,
     n_q      = 6
 )
@@ -42,4 +42,4 @@ simulated_choices_final <- simulated_choices %>%
 
 
 # Save data
-write_csv(simulated_choices_final, "data/rfid_simulated_choices_base.csv")
+write_csv(simulated_choices_final, "data/rfid_simulated_choices_unafraid.csv")
