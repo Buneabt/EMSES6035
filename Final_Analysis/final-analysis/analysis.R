@@ -6,6 +6,21 @@ library(here)
 library(fastDummies)
 library(cowplot)
 
+respondent <- read.csv(here('data','FinalSurveyV2_2025-12-03.csv'))
+
+gender <- respondent %>% 
+    filter(!is.na(gender)) %>% 
+    filter(gender == "man")
+nrow(gender)
+
+needles <- respondent %>% 
+    filter(needles == "blue")
+nrow(needles)
+
+rfid <- respondent %>% 
+    filter(rfid_familiar == "yes")
+nrow(rfid)
+
 # Compute WTP
 
 model_base <- readRDS("Model1.rds")
@@ -124,7 +139,7 @@ plot_compatability <- df_compatability %>%
     geom_point() +
     geom_errorbar(width = 0.3) +
     scale_y_continuous(limits = c(ymin, ymax)) +
-    labs(x = 'Operating System Compatability', y = 'WTP ($)') +
+    labs(x = 'OS Compatibility', y = 'WTP ($)') +
     theme_bw()
 
 plot_mnl_wtp <- plot_grid(
@@ -133,6 +148,13 @@ plot_mnl_wtp <- plot_grid(
     plot_type,
     plot_compatability,
     nrow = 2
+)
+
+ggsave(
+    filename = here('images', 'plot_mnl_wtp.jpeg'),
+    plot = plot_mnl_wtp,
+    width = 5,
+    height = 3
 )
 
 
@@ -145,14 +167,14 @@ summary(model_base)
 baseline <- data.frame(
     altID = c(1, 2, 3, 4),
     obsID = c(1, 1, 1, 1),
-    price = c(25, 45, 40, 50),
-    range = c(2,3,5,5),
-    capacity = c(2,3,5,5),
+    price = c(20, 16, 25, 15),
+    range = c(1,1,1,1),
+    capacity = c(3,1,5,1),
     type_ring = c(1, 0, 0,0),
     type_bracelet = c(0, 1, 0,0),
     type_implant = c(0, 0, 1,0),
-    compatability_android = c(1,0,0,0),
-    compatability_both = c(0,0,1,0)
+    compatability_android = c(0,0,0,0),
+    compatability_both = c(1,1,1,1)
 )
 
 # Columns are attributes, rows are alternatives
@@ -171,8 +193,8 @@ sim_mnl <- predict(
 sim_mnl
 
 ## Plot Market Simulation
-sim_mnl %>%
-    mutate(label = c("Ring Alternative", "Bracelet Alternative", "RFIDinMe", "Card Alternative")) %>%
+plot_sim_mnl <- sim_mnl %>%
+    mutate(label = c("Jakcom Ring", "Fobster Bracelet", "RFIDinMe", "Jiaxing Card")) %>%
     ggplot(aes(
         x = label,
         y = predicted_prob,
@@ -184,6 +206,13 @@ sim_mnl %>%
     scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
     labs(x = 'Alternative', y = 'Market Share') +
     theme_bw()
+plot_sim_mnl
+ggsave(
+    filename = here('images', 'sim_mnl.jpeg'),
+    plot = plot_sim_mnl,
+    width = 5,
+    height = 3
+)
 
 ## Sensitivity for Price
 

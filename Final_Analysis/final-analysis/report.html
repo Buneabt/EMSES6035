@@ -37,6 +37,35 @@ ul.task-list li input[type="checkbox"] {
 <link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="report_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -55,8 +84,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#final-survey-layout" id="toc-final-survey-layout" class="nav-link" data-scroll-target="#final-survey-layout">Final Survey Layout</a></li>
   <li><a href="#differences-from-the-pilot" id="toc-differences-from-the-pilot" class="nav-link" data-scroll-target="#differences-from-the-pilot">Differences from the Pilot</a></li>
   </ul></li>
-  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data Analysis</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#sample-description" id="toc-sample-description" class="nav-link" data-scroll-target="#sample-description">Sample Description</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling">Modelling</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#willingness-to-pay" id="toc-willingness-to-pay" class="nav-link" data-scroll-target="#willingness-to-pay">Willingness to Pay</a></li>
+  <li><a href="#market-scenario" id="toc-market-scenario" class="nav-link" data-scroll-target="#market-scenario">Market Scenario</a></li>
+  </ul></li>
   <li><a href="#final-recommendations-and-conclusions" id="toc-final-recommendations-and-conclusions" class="nav-link" data-scroll-target="#final-recommendations-and-conclusions">Final Recommendations and Conclusions</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">Limitations</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
@@ -152,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Compatibility</td>
-<td style="text-align: center;">iOs, Android, Both</td>
+<td style="text-align: center;">iOS, Android, Both</td>
 <td>Operating System</td>
 </tr>
 <tr class="even">
@@ -175,10 +213,416 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="data-analysis" class="level1">
 <h1>Data Analysis</h1>
+<p>In this section, the team will detail the analysis conducted on our final data.</p>
+<section id="sample-description" class="level2">
+<h2 class="anchored" data-anchor-id="sample-description">Sample Description</h2>
+<p>Our total number of respondents ended up being 226. To each of those 226 respondents, we asked 6 choice questions and received a total of 1,281 responses. The following table shows a breakdown of different demographic questions we asked on our survey.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 15%">
+<col style="width: 28%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Average_Age</th>
+<th style="text-align: right;">Percent_Men</th>
+<th style="text-align: right;">Percent_Women</th>
+<th style="text-align: right;">Percent_Afraid_of_Needles</th>
+<th style="text-align: right;">Percent_Familiar_with_RFID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">49.11</td>
+<td style="text-align: right;">50.89</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">85.84</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
+<p>Data was cleaned by first computing the time values for the survey. Next, we filtered out the bad responses, like respondents who did not complete all of their questions, or respondents who did not respond to all of the choice questions. Then we removed respondents who went through the survey too fast, put the data into “long” format, added values for the respondent and observer identifier, and put the ID variables up front. After this, we had 210 respondents remaining.</p>
+</section>
+<section id="modelling" class="level2">
+<h2 class="anchored" data-anchor-id="modelling">Modelling</h2>
+<p>Modelling is where our team began running into issues. One thing to look out for in logit models is whether or not respondents preferred a product if it cost more. Since this is generally not how consumers make decisions, if price has a positive beta coefficient, the entire population’s data is suspect. After running the model, we found that our real data had a positive beta coefficient. Below is our real data’s utility model:</p>
+<p><span class="math inline">\(u_{j} = 0.0027x_{j}^{price} - 0.0315x_{j}^{capacity} + 0.2463x_{j}^{range} - 0.1234\delta_{j}^{typeRing} - 0.0281\delta_{j}^{typeImplant} - 0.0761\delta_{j}^{typeCard}\)</span> <span class="math inline">\(- 0.0214\delta_{j}^{compatabilityAndroid} +  0.0868\delta_{j}^{compatabilityiOS}\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Model Coefficients</caption>
+<colgroup>
+<col style="width: 28%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 25%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">z-value</th>
+<th style="text-align: right;">Pr(&gt;|z|)</th>
+<th style="text-align: center;">Sig</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">price</td>
+<td style="text-align: right;">0.0026587</td>
+<td style="text-align: right;">0.0011029</td>
+<td style="text-align: right;">2.4106</td>
+<td style="text-align: right;">0.015925</td>
+<td style="text-align: center;">*</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">capacity</td>
+<td style="text-align: right;">-0.0315492</td>
+<td style="text-align: right;">0.0208764</td>
+<td style="text-align: right;">-1.5112</td>
+<td style="text-align: right;">0.130729</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">range</td>
+<td style="text-align: right;">0.2463251</td>
+<td style="text-align: right;">0.0929895</td>
+<td style="text-align: right;">2.6490</td>
+<td style="text-align: right;">0.008074</td>
+<td style="text-align: center;">**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">type_ring</td>
+<td style="text-align: right;">-0.1234112</td>
+<td style="text-align: right;">0.0974554</td>
+<td style="text-align: right;">-1.2663</td>
+<td style="text-align: right;">0.205393</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">type_implantable</td>
+<td style="text-align: right;">-0.0281179</td>
+<td style="text-align: right;">0.0968137</td>
+<td style="text-align: right;">-0.2904</td>
+<td style="text-align: right;">0.771485</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">type_card</td>
+<td style="text-align: right;">-0.0761160</td>
+<td style="text-align: right;">0.0946994</td>
+<td style="text-align: right;">-0.8038</td>
+<td style="text-align: right;">0.421533</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">compatability_android</td>
+<td style="text-align: right;">-0.0214399</td>
+<td style="text-align: right;">0.0829076</td>
+<td style="text-align: right;">-0.2586</td>
+<td style="text-align: right;">0.795944</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compatabilityi_os</td>
+<td style="text-align: right;">0.0868401</td>
+<td style="text-align: right;">0.0848465</td>
+<td style="text-align: right;">1.0235</td>
+<td style="text-align: right;">0.306073</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>To combat this, we decided to simulate a model with reasonable priors and work from there. Below is the baseline model we used for this project:</p>
+<p><span class="math inline">\(u_{j} = -0.5047x_{j}^{price} + 1.66915x_{j}^{capacity} + 1.0040x_{j}^{range} + 0.9881\delta_{j}^{typeRing} - 1.0987\delta_{j}^{typeBracelet} - 1.9183\delta_{j}^{typeImplant}\)</span> <span class="math inline">\(- 3.5868\delta_{j}^{compatabilityAndroid}-  1.3692\delta_{j}^{compatabilityBoth}\)</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Model Coefficients</caption>
+<colgroup>
+<col style="width: 28%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 25%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">z-value</th>
+<th style="text-align: right;">Pr(&gt;|z|)</th>
+<th style="text-align: center;">Sig</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">price</td>
+<td style="text-align: right;">-0.504721</td>
+<td style="text-align: right;">0.045138</td>
+<td style="text-align: right;">-11.1817</td>
+<td style="text-align: right;">&lt; 2.2e-16</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">capacity</td>
+<td style="text-align: right;">1.669097</td>
+<td style="text-align: right;">0.151638</td>
+<td style="text-align: right;">11.0071</td>
+<td style="text-align: right;">&lt; 2.2e-16</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">range</td>
+<td style="text-align: right;">1.003991</td>
+<td style="text-align: right;">0.104840</td>
+<td style="text-align: right;">9.5764</td>
+<td style="text-align: right;">&lt; 2.2e-16</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">type_ring</td>
+<td style="text-align: right;">0.988098</td>
+<td style="text-align: right;">0.277163</td>
+<td style="text-align: right;">3.5650</td>
+<td style="text-align: right;">0.0003638</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">type_bracelet</td>
+<td style="text-align: right;">-1.098712</td>
+<td style="text-align: right;">0.291453</td>
+<td style="text-align: right;">-3.7698</td>
+<td style="text-align: right;">0.0001634</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">type_implant</td>
+<td style="text-align: right;">-1.918279</td>
+<td style="text-align: right;">0.319947</td>
+<td style="text-align: right;">-5.9956</td>
+<td style="text-align: right;">2.027e-09</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">compatability_android</td>
+<td style="text-align: right;">-3.586827</td>
+<td style="text-align: right;">0.383914</td>
+<td style="text-align: right;">-9.3428</td>
+<td style="text-align: right;">&lt; 2.2e-16</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compatability_both</td>
+<td style="text-align: right;">-1.369225</td>
+<td style="text-align: right;">0.255018</td>
+<td style="text-align: right;">-5.3691</td>
+<td style="text-align: right;">7.912e-08</td>
+<td style="text-align: center;">***</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Below, please see a record of the priors used to create this model:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Prior Coefficients</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Attribute</th>
+<th style="text-align: left;">Level</th>
+<th style="text-align: right;">Prior Coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">price</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: right;">-0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">Ring</td>
+<td style="text-align: right;">2.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">Bracelet</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">Implant</td>
+<td style="text-align: right;">-0.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">type</td>
+<td style="text-align: left;">Card (ref)</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compatability</td>
+<td style="text-align: left;">Android</td>
+<td style="text-align: right;">-2.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">compatability</td>
+<td style="text-align: left;">Both</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">compatability</td>
+<td style="text-align: left;">iOS (ref)</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">capacity</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: right;">1.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">range</td>
+<td style="text-align: left;">Continuous</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
-<p>Mention how the first thing to verify is that price should be negative to verify.</p>
+<p>In this section, our team will go over the results from our study.</p>
+<section id="willingness-to-pay" class="level2">
+<h2 class="anchored" data-anchor-id="willingness-to-pay">Willingness to Pay</h2>
+<p>Willingness to pay describes how important different features of product are by showing how willing a customer is to pay for a specific version of that feature. Below are four charts detailing how willing to pay our simulated customer base is for our four main attributes (not including price): the range of the RFID device, the capacity of the RFID device, the type of device, and what operating system the device can operate with.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/plot_mnl_wtp.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Willingness to Pay</figcaption>
+</figure>
+</div>
+<p>There are two types of attributes on the plots above: continuous and discrete. The continuous variables, on top, show a linear relationship with how much a customer is willing to pay and the increase in performance. In this case, performance is measured by the range at which the RFID device can operate and how much data it can store. The discrete variables, the type of device and operating system, tell a slightly different story. The “card” and “iOS” options for type and OS respectively are the baseline choices. Any type or OS above the baseline is preferred to it and vice versa. Here, we see that a ring RFID type with iOS compatibility would be the most heavily preferred combination.</p>
+<p>Overall, our simulated customer base is much more willing to pay for device performance than type or operating system compatibility.</p>
+</section>
+<section id="market-scenario" class="level2">
+<h2 class="anchored" data-anchor-id="market-scenario">Market Scenario</h2>
+<p>The below table shows</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Baseline Scenario for Market Simulation</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 9%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Alt ID</th>
+<th style="text-align: center;">Obs ID</th>
+<th style="text-align: right;">Price</th>
+<th style="text-align: right;">Range</th>
+<th style="text-align: right;">Capacity</th>
+<th style="text-align: center;">Ring</th>
+<th style="text-align: center;">Bracelet</th>
+<th style="text-align: center;">Implant</th>
+<th style="text-align: center;">Android</th>
+<th style="text-align: center;">Both</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">JAKCOM Ring</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Fobster Bracelet</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">RFIDinMe</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Jiaxing Card</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>All RFID devices typically have a short range to prevent theft. Price justifications for most of the competitors was found on Amazon, links are below:</p>
+<p><a href="https://www.amazon.com/JAKCOM-Intelligent-Wearable-Functions-Technology/dp/B0FD86T2BG/ref=sr_1_15?dib=eyJ2IjoiMSJ9.q_qfNyJ0ZGNMoPzwdThi_E39yG5ljGQIrHY8JuiWLPD3nqPsjvujtjEv2smC8GkcW5IWrKQGl-FvoCAt175Pmo2kJ-sIPqxFLrglnxCalbw7swGzWwV26HURTNZRV0ppYeAzTI4sYXdDfbZS0iwa87szCT1Qx_uxZPumFePCzy0kHFbZxF1DBv4KqkoA9fpiRL2CRjn6NN6oxfJeEdI8ltpygh5gHopm6Q30m-F_Mio.uT5C8wUvr6vRouYtXa8_Bge30UbQmfqHQs7oPK8gHaY&amp;dib_tag=se&amp;keywords=rfid%2Bring&amp;qid=1765165129&amp;sr=8-15&amp;th=1" target="_blank">JAKCOM</a></p>
+<p><a href="https://www.amazon.com/Contactless-Rewritable-Proximity-Clamshell-Compatible/dp/B088WC7S35/ref=sr_1_3?dib=eyJ2IjoiMSJ9.RRLV13xbqA2g_XB5nXt-_xP8n8mjAh34Me46aJ69hwAmpEV_4SKirq4IGSexZ-Ah5b83eEPl39TjGdL3xTmEmC65OaZ9MMarhfgZAysCrcwZtiBpc4ClAteK5rr1Mft5NMI_kjI3zgA4JKAM8p-L6DPIwPa7ZQxwgvQ1Y5-X3Z8iN0kduDhJwbhJns64oHpOcN6SC2V0IuA2aojPpMib2Wc3by5cUYx9Cz5vEIcxRrZT7lzA9Herykb131HNaBSRFLXRjrLkaeER3Z4nOoWuwB4g9H-tfzVOaeRCfkvj9YY.tr3nvJbAMziEy6Tf6SOU4_If2-Sy8S74P2Z0cO6PcBk&amp;dib_tag=se&amp;keywords=rfid%2Bcard&amp;qid=1765164801&amp;sr=8-3&amp;th=1" target="_blank">Jiaxing</a></p>
+<p><a href="https://www.amazon.com/Fobster-Bracelet-Keyfob-Wristband-Patented/dp/B097PVSRJ6/ref=sr_1_1_sspa?crid=1Z3JK10M567ZX&amp;dib=eyJ2IjoiMSJ9.tvGMexFwcSGW9YfkK2SqweCmBgisLrShUau-ILOeXUynV4KGGVNNF8JT0qKD7GpzdI_9Yqu_um9dy6Y0PcAtz6tjvzXWVkFtqNFF8wnpReOz6TmZ6Vgri7rfRTecTWOESIsdGgObiit5Dzb3wyjvtRhm6PPb4cUY6sr3GgeJayF8oaVxGc31BmE2TB3TyW3xO3n6DD_Y1locTyNU-FqpbEvw38i1pV0gSE56lyQkVlA.HdwmVjjBdBOBf2bIbhXsexUp4-lqEN7Ki4V-Kxnywj4&amp;dib_tag=se&amp;keywords=rfid+wristband&amp;qid=1765164928&amp;sprefix=rfid+wristban%2Caps%2C150&amp;sr=8-1-spons&amp;sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&amp;psc=11" target="_blank">Fobster</a></p>
+<p><a href="https://dangerousthings.com/product/xslx/" target="_blank">Implant Price</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/sim_mnl.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Market Share</figcaption>
+</figure>
+</div>
+</section>
 </section>
 <section id="final-recommendations-and-conclusions" class="level1">
 <h1>Final Recommendations and Conclusions</h1>
@@ -192,7 +636,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/Page1.jpeg" class="img-fluid figure-img"></p>
-<figcaption>Appendix 1 shows the survey introduction apge</figcaption>
+<figcaption>Appendix 1 shows the survey introduction page</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">

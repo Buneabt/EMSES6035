@@ -11,7 +11,7 @@ options(dplyr.width = Inf) # So you can see all of the columns
 
 # -----------------------------------------------------------------------------
 # Load the data set:
-data <- read_csv(here("data", "rfid_simulated_choices_base.csv")) %>% 
+data <- read_csv(here("data", "choice_data_real.csv")) %>% 
     select(-session_id)
 head(data)
 
@@ -31,13 +31,13 @@ model <- logitr(
     data = data,
     outcome = "choice",
     obsID = "obs_id",
-    pars = c("price", "capacity", "range", "type_ring", "type_bracelet", "type_implant", "compatability_android", "compatability_both")
+    pars = c("price", "capacity", "range", "type_ring", "type_implantable", "type_card", "compatability_android", "compatabilityi_os")
 )
 
 # View summary of results
 summary(model)
 
-saveRDS(model, file = "Model1.rds")
+saveRDS(model, file = "Model_Real.rds")
 
 # Check the 1st order condition: Is the gradient at the solution zero?
 model$gradient

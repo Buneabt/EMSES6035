@@ -25,6 +25,7 @@ knitr::opts_chunk$set(
 # Load libraries here
 library(tidyverse)
 library(here)
+library(knitr)
 ```
 
 
@@ -62,7 +63,7 @@ Our survey was split into three major components:
 |:--------------:|:---------------------------------:|------------------|
 |  Device Type   | Card, Ring, Bracelet, Implantable | N/A              |
 |     Price      |         \$25, \$50, \$75          | USD              |
-| Compatibility  |        iOs, Android, Both         | Operating System |
+| Compatibility  |        iOS, Android, Both         | Operating System |
 |  Tag Capacity  |              1, 3, 5              | kilobytes        |
 |  Device Range  |              1, 3, 5              | ft               |
 
@@ -74,9 +75,186 @@ Large differences came from the amount of weed out questions where now the surve
 
 # Data Analysis
 
+In this section, the team will detail the analysis conducted on our final data.
+
+## Sample Description
+
+Our total number of respondents ended up being 226. To each of those 226 respondents, we asked 6 choice questions and received a total of 1,281 responses. The following table shows a breakdown of different demographic questions we asked on our survey.
+
+```{r}
+#| echo: false
+
+stats <- data.frame(
+    Average_Age = c(38),
+    Percent_Men = c(49.11),
+    Percent_Women = c(50.89),
+    Percent_Afraid_of_Needles = c(23),
+    Percent_Familiar_with_RFID = c(85.84)
+)
+
+kable(stats)
+```
+
+## Data Cleaning
+
+Data was cleaned by first computing the time values for the survey. Next, we filtered out the bad responses, like respondents who did not complete all of their questions, or respondents who did not respond to all of the choice questions. Then we removed respondents who went through the survey too fast, put the data into "long" format, added values for the respondent and observer identifier, and put the ID variables up front. After this, we had 210 respondents remaining. 
+
+## Modelling
+
+Modelling is where our team began running into issues. One thing to look out for in logit models is whether or not respondents preferred a product if it cost more. Since this is generally not how consumers make decisions, if price has a positive beta coefficient, the entire population's data is suspect. After running the model, we found that our real data had a positive beta coefficient. Below is our real data's utility model:
+
+$u_{j} = 0.0027x_{j}^{price} - 0.0315x_{j}^{capacity} + 0.2463x_{j}^{range} - 0.1234\delta_{j}^{typeRing} - 0.0281\delta_{j}^{typeImplant} - 0.0761\delta_{j}^{typeCard}$
+$- 0.0214\delta_{j}^{compatabilityAndroid} +  0.0868\delta_{j}^{compatabilityiOS}$
+
+```{r}
+#| echo: false
+
+# Code provided by Claude
+
+model_coef <- tribble(
+  ~Variable,                  ~Estimate,    ~`Std. Error`, ~`z-value`, ~`Pr(>|z|)`, ~Sig,
+  "price",                    0.0026587,    0.0011029,     2.4106,     0.015925,    "*",
+  "capacity",                -0.0315492,    0.0208764,    -1.5112,     0.130729,    "",
+  "range",                    0.2463251,    0.0929895,     2.6490,     0.008074,    "**",
+  "type_ring",               -0.1234112,    0.0974554,    -1.2663,     0.205393,    "",
+  "type_implantable",        -0.0281179,    0.0968137,    -0.2904,     0.771485,    "",
+  "type_card",               -0.0761160,    0.0946994,    -0.8038,     0.421533,    "",
+  "compatability_android",   -0.0214399,    0.0829076,    -0.2586,     0.795944,    "",
+  "compatabilityi_os",        0.0868401,    0.0848465,     1.0235,     0.306073,    ""
+)
+
+# Create the table
+kable(
+  model_coef,
+  digits = c(0, 7, 7, 4, 6, 0),  # Different precision for each column
+  align = c("l", "r", "r", "r", "r", "c"),
+  caption = "Model Coefficients"
+)
+```
+
+To combat this, we decided to simulate a model with reasonable priors and work from there. Below is the baseline model we used for this project:
+
+$u_{j} = -0.5047x_{j}^{price} + 1.66915x_{j}^{capacity} + 1.0040x_{j}^{range} + 0.9881\delta_{j}^{typeRing} - 1.0987\delta_{j}^{typeBracelet} - 1.9183\delta_{j}^{typeImplant}$
+$- 3.5868\delta_{j}^{compatabilityAndroid}-  1.3692\delta_{j}^{compatabilityBoth}$
+
+```{r}
+#| echo: false
+
+# Code provided by Claude
+
+model_coef <- tribble(
+  ~Variable,                  ~Estimate,    ~`Std. Error`, ~`z-value`, ~`Pr(>|z|)`,      ~Sig,
+  "price",                    -0.504721,    0.045138,      -11.1817,   "< 2.2e-16",      "***",
+  "capacity",                  1.669097,    0.151638,       11.0071,   "< 2.2e-16",      "***",
+  "range",                     1.003991,    0.104840,        9.5764,   "< 2.2e-16",      "***",
+  "type_ring",                 0.988098,    0.277163,        3.5650,   "0.0003638",      "***",
+  "type_bracelet",            -1.098712,    0.291453,       -3.7698,   "0.0001634",      "***",
+  "type_implant",             -1.918279,    0.319947,       -5.9956,   "2.027e-09",      "***",
+  "compatability_android",    -3.586827,    0.383914,       -9.3428,   "< 2.2e-16",      "***",
+  "compatability_both",       -1.369225,    0.255018,       -5.3691,   "7.912e-08",      "***"
+)
+
+# Create the table
+kable(
+  model_coef,
+  digits = c(0, 6, 6, 4, 0, 0),
+  align = c("l", "r", "r", "r", "r", "c"),
+  caption = "Model Coefficients"
+)
+```
+
+Below, please see a record of the priors used to create this model:
+
+```{r}
+#| echo: false
+
+# Code provided by Claude to make the table
+# Convert to a data frame for the table
+priors_table <- tribble(
+    ~Attribute,        ~Level,           ~Prior,
+    "price",           "Continuous",     -0.5,
+    "type",            "Ring",            2.0,
+    "type",            "Bracelet",        1.0,
+    "type",            "Implant",        -0.75,
+    "type",            "Card (ref)",      0.0,
+    "compatability",   "Android",        -2.0,
+    "compatability",   "Both",            1.0,
+    "compatability",   "iOS (ref)",       0.0,
+    "capacity",        "Continuous",      1.5,
+    "range",           "Continuous",      1.0
+)
+
+# Create the table
+kable(
+    priors_table,
+    caption = "Prior Coefficients",
+    align = c("l", "l", "r"),
+    col.names = c("Attribute", "Level", "Prior Coefficient")
+)
+
+```
+
 # Results
 
-Mention how the first thing to verify is that price should be negative to verify.
+In this section, our team will go over the results from our study.
+
+## Willingness to Pay
+
+Willingness to pay describes how important different features of product are by showing how willing a customer is to pay for a specific version of that feature. Below are four charts detailing how willing to pay our simulated customer base is for our four main attributes (not including price): the range of the RFID device, the capacity of the RFID device, the type of device, and what operating system the device can operate with.
+
+![Willingness to Pay](images/plot_mnl_wtp.jpeg)
+
+There are two types of attributes on the plots above: continuous and discrete. The continuous variables, on top, show a linear relationship with how much a customer is willing to pay and the increase in performance. In this case, performance is measured by the range at which the RFID device can operate and how much data it can store. The discrete variables, the type of device and operating system, tell a slightly different story. The "card" and "iOS" options for type and OS respectively are the baseline choices. Any type or OS above the baseline is preferred to it and vice versa. Here, we see that a ring RFID type with iOS compatibility would be the most heavily preferred combination.
+
+Overall, our simulated customer base is much more willing to pay for device performance than type or operating system compatibility.
+
+## Market Scenario
+
+The below table shows our baseline for our market scenario.
+
+```{r}
+#| echo: false
+
+#Code provided by Claude
+
+baseline <- data.frame(
+    ID = c("JAKCOM Ring", "Fobster Bracelet", "RFIDinMe","Jiaxing Card"),
+    obsID = c(1, 1, 1, 1),
+    price = c(20, 16, 25, 15),
+    range = c(1, 1, 1, 1),
+    capacity = c(3, 1, 5, 1),
+    type_ring = c(1, 0, 0, 0),
+    type_bracelet = c(0, 1, 0, 0),
+    type_implant = c(0, 0, 1, 0),
+    compatability_android = c(0, 0, 0, 0),
+    compatability_both = c(1, 1, 1, 1)
+)
+
+# Create the table
+kable(
+    baseline,
+    caption = "Baseline Scenario for Market Simulation",
+    col.names = c("Alt ID", "Obs ID", "Price", "Range", "Capacity", 
+                  "Ring", "Bracelet", "Implant", "Android", "Both"),
+    align = c("c", "c", "r", "r", "r", "c", "c", "c", "c", "c")
+)
+```
+
+All RFID devices typically have a short range to prevent theft. Price justifications for most of the competitors was found on Amazon, links are below:
+
+[JAKCOM](https://www.amazon.com/JAKCOM-Intelligent-Wearable-Functions-Technology/dp/B0FD86T2BG/ref=sr_1_15?dib=eyJ2IjoiMSJ9.q_qfNyJ0ZGNMoPzwdThi_E39yG5ljGQIrHY8JuiWLPD3nqPsjvujtjEv2smC8GkcW5IWrKQGl-FvoCAt175Pmo2kJ-sIPqxFLrglnxCalbw7swGzWwV26HURTNZRV0ppYeAzTI4sYXdDfbZS0iwa87szCT1Qx_uxZPumFePCzy0kHFbZxF1DBv4KqkoA9fpiRL2CRjn6NN6oxfJeEdI8ltpygh5gHopm6Q30m-F_Mio.uT5C8wUvr6vRouYtXa8_Bge30UbQmfqHQs7oPK8gHaY&dib_tag=se&keywords=rfid%2Bring&qid=1765165129&sr=8-15&th=1){target="_blank"}
+
+[Jiaxing](https://www.amazon.com/Contactless-Rewritable-Proximity-Clamshell-Compatible/dp/B088WC7S35/ref=sr_1_3?dib=eyJ2IjoiMSJ9.RRLV13xbqA2g_XB5nXt-_xP8n8mjAh34Me46aJ69hwAmpEV_4SKirq4IGSexZ-Ah5b83eEPl39TjGdL3xTmEmC65OaZ9MMarhfgZAysCrcwZtiBpc4ClAteK5rr1Mft5NMI_kjI3zgA4JKAM8p-L6DPIwPa7ZQxwgvQ1Y5-X3Z8iN0kduDhJwbhJns64oHpOcN6SC2V0IuA2aojPpMib2Wc3by5cUYx9Cz5vEIcxRrZT7lzA9Herykb131HNaBSRFLXRjrLkaeER3Z4nOoWuwB4g9H-tfzVOaeRCfkvj9YY.tr3nvJbAMziEy6Tf6SOU4_If2-Sy8S74P2Z0cO6PcBk&dib_tag=se&keywords=rfid%2Bcard&qid=1765164801&sr=8-3&th=1){target="_blank"}
+
+[Fobster](https://www.amazon.com/Fobster-Bracelet-Keyfob-Wristband-Patented/dp/B097PVSRJ6/ref=sr_1_1_sspa?crid=1Z3JK10M567ZX&dib=eyJ2IjoiMSJ9.tvGMexFwcSGW9YfkK2SqweCmBgisLrShUau-ILOeXUynV4KGGVNNF8JT0qKD7GpzdI_9Yqu_um9dy6Y0PcAtz6tjvzXWVkFtqNFF8wnpReOz6TmZ6Vgri7rfRTecTWOESIsdGgObiit5Dzb3wyjvtRhm6PPb4cUY6sr3GgeJayF8oaVxGc31BmE2TB3TyW3xO3n6DD_Y1locTyNU-FqpbEvw38i1pV0gSE56lyQkVlA.HdwmVjjBdBOBf2bIbhXsexUp4-lqEN7Ki4V-Kxnywj4&dib_tag=se&keywords=rfid+wristband&qid=1765164928&sprefix=rfid+wristban%2Caps%2C150&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=11){target="_blank"}
+
+[Implant Price](https://dangerousthings.com/product/xslx/){target="_blank"}
+
+Our market share below illustrates that even with a high capacity and competitive price, RFIDinMe would only obtain market share of about 10%.
+
+![Market Share](images/sim_mnl.jpeg)
+
+We would argue that while there is potential for implant RFID devices to enter the market, expecting them to generate a large market share is optimistic. Cheap and pain free alternatives like rings are much easier to market and not nearly as scary. They are also 
 
 # Final Recommendations and Conclusions
 
@@ -86,7 +264,7 @@ Mention how the first thing to verify is that price should be negative to verify
 
 This appendix is split into 11 sections representing each page of the conjoint survey include ONE conjoint question out of the 6.
 
-![Appendix 1 shows the survey introduction apge](images/Page1.jpeg)
+![Appendix 1 shows the survey introduction page](images/Page1.jpeg)
 
 ![Appendix 2 Shows survey consent pages where our one and only screenout question is located](images/Page2.jpeg)
 

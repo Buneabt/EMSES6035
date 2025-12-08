@@ -129,4 +129,4 @@ choice_data <- choice_data %>%
 head(choice_data)
 
 # Save cleaned data for modeling
-write_csv(choice_data, here("data", "choice_data.csv"))
+write_csv(choice_data, here("data", "choice_data_real.csv"))
