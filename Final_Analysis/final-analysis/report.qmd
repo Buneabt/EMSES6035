@@ -31,15 +31,17 @@ library(knitr)
 
 # Abstract
 
+Radio-frequency identification (RFID) technology is increasingly integrated into tap access systems, contactless payments, and modern security applications. This study evaluates which design attributes would make a consolidated RFID device most appealing to consumers. The proposed product would store multiple RFID credentials, such as key fobs, ID cards, and payment cards, within a single device. Key attributes examined included physical form factor (card, ring, bracelet, or implant), price, operating-system compatibility (iOS, Android, or both), read range, and tag capacity. An analysis of user preferences revealed several dominant trends. Participants strongly favored the lower-priced options and showed the highest preference for a ring-style device. Tag capacity had the greatest positive influence on utility, and iOS compatibility was consistently preferred over Android or dual-system options. Based on these results, the optimal market offering is a ring-form RFID device with high tag capacity, extended read range, and iOS compatibility.
+
 # Introduction
 
-Currently RFID devices are becoming ever more prevalent in common day use. As students, your ID card allows you to tap into buildings at will. For commuters, a simple tap and your fare is paid for. In this case study our team aimed to create an RFID device that met consumer needs by providing as vast array of attributes to choose from. A wildcard sub attribute of choice was also added which was the additional of implantable RFID devices.
+Currently, RFID devices are becoming ever more prevalent in common day use. As students, your ID card allows you to tap into buildings at will. For commuters, a simple tap and your fare is paid for. In this case study, our team aimed to create an RFID device that met consumer needs by providing a vast array of attributes to choose from. A wildcard sub attribute of choice was also added, which was the addition of implantable RFID devices.
 
-These types of devices are small, non-toxic, pill shaped devices that can be self implanted into your hand and can act as a conventional RFID device as described above. This is commonly known as Bio-Hacking and an X-ray of this can be seen below in Figure 1 showing a pill like device implanted in the hand of an individual.
+These types of devices are small, non-toxic, pill-shaped devices that can be self-implanted into your hand and can act as a conventional RFID device as described above. This is commonly known as Bio-Hacking, and an X-ray of this can be seen below in Figure 1, showing a pill-like device implanted in the hand of an individual.
 
 ![Figure 1 shows an example of an implantable RFID device](images/ImplantNew.jpg){fig-align="center" width="238"}
 
-Further attributes for this survey are things such as price, compatibility, capacity, and range which will be discussed further in the survey design section of this survey.
+Further attributes for this survey are things such as price, compatibility, capacity, and range, which will be discussed further in the survey design section of this survey.
 
 # Survey Design
 
@@ -49,15 +51,15 @@ Our survey was split into three major components:
 
 1.  **Survey Introduction**
 
-    This portion of the survey filtered out respondents under the age of 18 and informed individuals if they weren't already knowledge about this field of devices using a hidden page that described what the devices are and how many people already use them in the real world.
+    This portion of the survey filtered out respondents under the age of 18 and informed individuals if they weren't already knowledgeable about this field of devices, using a hidden page that described what the devices are and how many people already use them in the real world.
 
 2.  **Survey Questions**
 
-    Here respondents were asked 6 questions pulled from our choice design. Each of which having three options which contained in of itself 5 major attributes: The Type of Device, Price, Compatibility, Tag capacity, and the range of the device. The levels of each attributes can be found in the table below:
+    Here, respondents were asked 6 questions pulled from our choice design. Each of which has three options, which contain in itself 5 major attributes: The Type of Device, Price, Compatibility, Tag capacity, and the range of the device. The levels of each attribute can be found in the table below:
 
 3.  **Survey Demographics**
 
-    After completing all survey content users are asked to complete certain questions about their demographics such as year and gender. Other things such as survey feedback we're also asked but are not crucial to analysis.
+    After completing all survey content, users are asked to complete certain questions about their demographics, such as year and gender. Other things, such as survey feedback, we're also asked, but are not crucial to the analysis.
 
 | Attribute Name |              Levels               | Unit             |
 |:--------------:|:---------------------------------:|------------------|
@@ -71,7 +73,7 @@ Our survey was split into three major components:
 
 ## Differences from the Pilot
 
-Large differences came from the amount of weed out questions where now the survey only contains the age verification question. Another major difference is the lack of images within the survey but this has now been populated with images accurately depicting the available options. See Appendix 9 for an example of this.
+Large differences came from the number of weed-out questions, where now the survey only contains the age verification question. Another major difference is the lack of images within the survey, but this has now been populated with images accurately depicting the available options. See Appendix 9 for an example of this.
 
 # Data Analysis
 
@@ -196,6 +198,7 @@ kable(
 
 # Results
 
+<<<<<<< HEAD
 In this section, our team will go over the results from our study.
 
 ## Willingness to Pay
@@ -255,14 +258,23 @@ Our market share below illustrates that even with a high capacity and competitiv
 ![Market Share](images/sim_mnl.jpeg)
 
 We would argue that while there is potential for implant RFID devices to enter the market, expecting them to generate a large market share is optimistic. Cheap and pain free alternatives like rings are much easier to market and not nearly as scary. They are also 
+=======
+Mention how the first thing to verify is that the price should be negative to verify.
+>>>>>>> d59cae5c1d6db5b711b532af65930d484bd2c2cc
 
 # Final Recommendations and Conclusions
+
+The proposed RFID implant was evaluated against alternative form factors using simulated preference data. The results indicate that the implant is unlikely to be competitive in the consumer market. The implant received the lowest estimated utility of all form types, while the ring was the only form factor with a positive beta. Consumers placed substantial value on storage capacity far more than on price, which suggests that competitiveness for any device, including an implant, relies heavily on the number of RFID tags it can store. Based on the magnitude of the negative form-factor beta, the implant would require either extremely high capacity or an unusually low price to be competitive with the ring option.
+Several uncertainties constrain confidence in profitability estimates. The most significant is the true upper limit on the device’s capacity; capacity had the largest positive beta in the model, meaning that even moderate increases could meaningfully shift demand. In addition, the underlying dataset showed an unexpected positive beta on price, indicating either a respondent misunderstanding, a desire to avoid the implant by selecting higher-priced alternatives, or a correlation between price and perceived storage. These inconsistencies reduce confidence in the stability of the estimates and suggest that real-world data collection will be required before high-stakes decisions are made.
+The strongest recommendation is to abandon the implant form factor and instead pursue development of a ring-based RFID device. A ring design is the only option with robust positive consumer preference. The device should prioritize high storage capacity, and the pricing should fall in the medium-to-low range to avoid eroding utility, though demand appears substantially more sensitive to capacity than to price. These recommendations are moderately robust, as they are supported by large differences in utility between form factors; however, true robustness cannot be confirmed until non-simulated data are collected.
+The most promising opportunity to increase demand is to maximize the device’s storage capacity, as this attribute overwhelmingly dominated all others in the model. Additional opportunities include optimizing comfort and wearability through the ring form factor and ensuring compatibility with major operating systems to broaden the potential user base. Together, these strategies offer the clearest path toward market success for the product.
+
 
 # Limitations
 
 # Appendix
 
-This appendix is split into 11 sections representing each page of the conjoint survey include ONE conjoint question out of the 6.
+This appendix is split into 11 sections, representing each page of the conjoint survey, including ONE conjoint question out of the 6.
 
 ![Appendix 1 shows the survey introduction page](images/Page1.jpeg)
 
