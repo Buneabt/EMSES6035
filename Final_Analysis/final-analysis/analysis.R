@@ -99,7 +99,7 @@ plot_capacity <- df_capacity %>%
     geom_ribbon(alpha = 0.2) +
     geom_line() +
     scale_y_continuous(limits = c(ymin, ymax)) +
-    labs(x = 'Product Capacity (KB)', y = 'WTP ($10)') +
+    labs(x = 'Product Capacity (KB)', y = 'WTP ($)') +
     theme_bw()
 
 plot_range <- df_range %>%
@@ -107,7 +107,7 @@ plot_range <- df_range %>%
     geom_ribbon(alpha = 0.2) +
     geom_line() +
     scale_y_continuous(limits = c(ymin, ymax)) +
-    labs(x = 'Product Range (feet)', y = 'WTP ($10)') +
+    labs(x = 'Product Range (feet)', y = 'WTP ($)') +
     theme_bw()
 
 plot_type <- df_type %>%
@@ -115,7 +115,7 @@ plot_type <- df_type %>%
     geom_point() +
     geom_errorbar(width = 0.3) +
     scale_y_continuous(limits = c(ymin, ymax)) +
-    labs(x = 'Product Type', y = 'WTP ($10)') +
+    labs(x = 'Product Type', y = 'WTP ($)') +
     theme_bw()
 
 plot_compatability <- df_compatability %>%
@@ -123,7 +123,7 @@ plot_compatability <- df_compatability %>%
     geom_point() +
     geom_errorbar(width = 0.3) +
     scale_y_continuous(limits = c(ymin, ymax)) +
-    labs(x = 'Operating System Compatability', y = 'WTP ($10)') +
+    labs(x = 'Operating System Compatability', y = 'WTP ($)') +
     theme_bw()
 
 plot_mnl_wtp <- plot_grid(
@@ -133,3 +133,53 @@ plot_mnl_wtp <- plot_grid(
     plot_compatability,
     nrow = 2
 )
+
+
+# Market Simulation
+# Single market simulation using the mnl model
+
+summary(model_base)
+
+# Create a set of alternatives for which to simulate shares
+baseline <- data.frame(
+    altID = c(1, 2, 3, 4),
+    obsID = c(1, 1, 1, 1),
+    price = c(25, 30, 40, 100),
+    range = c(2,3,5,5),
+    capacity = c(2,5,3,5),
+    type_ring = c(1, 0, 0,0),
+    type_bracelet = c(0, 1, 0,0),
+    type_implant = c(0, 0, 1,0),
+    compatability_android = c(1,0,0,0),
+    compatability_both = c(0,0,1,0)
+)
+
+# Columns are attributes, rows are alternatives
+baseline
+
+# Use the predict() function to compute the probabilities
+sim_mnl <- predict(
+    model_base,
+    newdata = baseline,
+    obsID = 'obsID',
+    level = 0.95,
+    interval = 'confidence',
+    returnData = TRUE # This returns your data along with predicted values
+)
+
+sim_mnl
+
+## Plot Market Simulation
+sim_mnl %>%
+    mutate(label = c("Ring", "Bracelet", "Implant", "Card")) %>%
+    ggplot(aes(
+        x = label,
+        y = predicted_prob,
+        ymin = predicted_prob_lower,
+        ymax = predicted_prob_upper
+    )) +
+    geom_col(fill = "grey", width = 0.6) +
+    geom_errorbar(width = 0.3) +
+    scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
+    labs(x = 'Alternative', y = 'Market Share') +
+    theme_bw()
