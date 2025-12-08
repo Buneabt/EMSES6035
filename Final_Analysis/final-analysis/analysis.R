@@ -218,7 +218,7 @@ ggsave(
 
 # Define the sensitivity cases
 
-prices <- seq(10, 100) # Define sensitivity price levels
+prices <- seq(10, 30) # Define sensitivity price levels
 n <- length(prices) # Number of simulations 
 rep_df <- function(df, n) {
     result <- df[rep(seq_len(nrow(df)), n), ]
@@ -254,12 +254,12 @@ sens_price
 # "low"  means they result in lower market shares
 cases <- tribble(
     ~obsID, ~altID, ~attribute,    ~case,  ~value,
-    2,      3,     'price',       'high',  40*0.8,
-    3,      3,     'price',       'low',   40*1.2,
-    4,      3,     'range',       'high',  5*1.2,
-    5,      3,     'range',       'low',   5*0.8,
-    6,      3,     'capacity',    'high',  5*0.8,
-    7,      3,     'capacity',    'low',   5*1.2
+    2,      3,     'price',       'high',  20*0.8,
+    3,      3,     'price',       'low',   20*1.2,
+    4,      3,     'range',       'high',  2*1.2,
+    5,      3,     'range',       'low',   2*0.8,
+    6,      3,     'capacity',    'high',  2*0.8,
+    7,      3,     'capacity',    'low',   2*1.2
 )
 
 cases
@@ -298,3 +298,98 @@ sens_atts <- predict(
     select(attribute, case, value, predicted_prob)
 
 sens_atts
+
+
+# Make a tornado diagram to show market sensitivity to multiple
+ggtornado <- function(
+        data,
+        baseline,
+        var,
+        level,
+        value,
+        result
+) {
+    
+    # Create a new data frame for plotting
+    df <- data[c(var, level, value, result)]
+    colnames(df) <- c('var', 'level', 'value', 'result')
+    
+    # Add hust based on the level
+    df$hjust <- rep(c(0, 1), nrow(df) / 2)
+    
+    # "Center" the result around the baseline result (so baseline is at 0)
+    df$result <- df$result - baseline
+    
+    # Compute the range in change from low to high levels for sorting
+    df$resultRange <- stats::ave(abs(df$result), df$var, FUN = sum)
+    
+    # dplyr solution
+    # df <- df %>%
+    #     # "Center" the result around the baseline result (so baseline is at 0)
+    #     mutate(result = result - baseline) %>%
+    #     # Compute the range in change from low to high levels for sorting
+    #     group_by(var) %>%
+    #     mutate(resultRange = sum(abs(result)))
+    
+    # Compute labels for the x-axis
+    lb        <- floor(10*min(df$result))/10
+    ub        <- ceiling(10*max(df$result))/10
+    breaks    <- seq(lb, ub, (ub - lb) / 5)
+    breakLabs <- round(breaks + baseline, 2)
+    
+    # Make the tornado diagram
+    plot <- ggplot(df,
+                   aes(
+                       x = .data$result,
+                       y = stats::reorder(.data$var, .data$resultRange),
+                       fill = level)
+    ) +
+        geom_col(width = 0.6) +
+        # Add labels on bars
+        geom_text(aes(label = .data$value, hjust = .data$hjust), vjust = 0.5) +
+        scale_x_continuous(
+            limits = c(lb, ub),
+            breaks = breaks,
+            labels = breakLabs) +
+        labs(x = 'Result', y = 'Parameter') +
+        theme_bw() +
+        theme(legend.position = 'none') # Remove legend
+    
+    return(plot)
+}
+labels <- data.frame(
+    attribute = c('price', 'range', 'capacity'),
+    label = c(
+        'Price ($)',
+        'Range (Ft)',
+        'Capacity (kB)'
+    )
+)
+
+tornado_data <- sens_atts %>%
+    filter(case != 'base') %>%
+    # Rename variables for plotting labels
+    left_join(labels, by = 'attribute')
+
+tornado_base <- ggtornado(
+    data = tornado_data,
+    baseline = sens_atts$predicted_prob[1],
+    var = 'label',
+    level = 'case',
+    value = 'value',
+    result = 'predicted_prob'
+)
+
+# Change the fill colors, adjust labels
+tornado_plot <- tornado_base +
+    scale_fill_manual(values = c("#67a9cf", "#ef8a62")) +
+    labs(x = 'Market Share', y = 'Attribute')
+
+tornado_plot
+
+ggsave(
+    filename = here('images', 'tornado.jpeg'),
+    plot = tornado_plot,
+    width = 5,
+    height = 3
+)

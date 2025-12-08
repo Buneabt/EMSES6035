@@ -31,7 +31,7 @@ library(knitr)
 
 # Abstract
 
-Radio-frequency identification (RFID) technology is increasingly integrated into tap access systems, contactless payments, and modern security applications. This study evaluates which design attributes would make a consolidated RFID device most appealing to consumers. The proposed product would store multiple RFID credentials, such as key fobs, ID cards, and payment cards, within a single device. Key attributes examined included physical form factor (card, ring, bracelet, or implant), price, operating-system compatibility (iOS, Android, or both), read range, and tag capacity. An analysis of user preferences revealed several dominant trends. Participants strongly favored the lower-priced options and showed the highest preference for a ring-style device. Tag capacity had the greatest positive influence on utility, and iOS compatibility was consistently preferred over Android or dual-system options. Based on these results, the optimal market offering is a ring-form RFID device with high tag capacity, extended read range, and iOS compatibility.
+Radio-frequency identification (RFID) technology is increasingly integrated into tap access systems, contact-less payments, and modern security applications. This study evaluates which design attributes would make a consolidated RFID device most appealing to consumers. The proposed product would store multiple RFID credentials, such as key fobs, ID cards, and payment cards, within a single device. Key attributes examined included physical form factor (card, ring, bracelet, or implant), price, operating-system compatibility (iOS, Android, or both), read range, and tag capacity. An analysis of user preferences revealed several dominant trends. Participants strongly favored the lower-priced options and showed the highest preference for a ring-style device. Tag capacity had the greatest positive influence on utility, and iOS compatibility was consistently preferred over Android or dual-system options. Based on these results, the optimal market offering is a ring-form RFID device with high tag capacity, extended read range, and iOS compatibility.
 
 # Introduction
 
@@ -198,7 +198,6 @@ kable(
 
 # Results
 
-<<<<<<< HEAD
 In this section, our team will go over the results from our study.
 
 ## Willingness to Pay
@@ -257,20 +256,102 @@ Our market share below illustrates that even with a high capacity and competitiv
 
 ![Market Share](images/sim_mnl.jpeg)
 
-We would argue that while there is potential for implant RFID devices to enter the market, expecting them to generate a large market share is optimistic. Cheap and pain free alternatives like rings are much easier to market and not nearly as scary. They are also 
-=======
-Mention how the first thing to verify is that the price should be negative to verify.
->>>>>>> d59cae5c1d6db5b711b532af65930d484bd2c2cc
+We would argue that while there is potential for implant RFID devices to enter the market, expecting them to generate a large market share is optimistic. Cheap and pain free alternatives like rings are much easier to market and not nearly as scary. We believe that to improve product adoption, we would have to greatly increase the storage capacity of RFIDinMe. RFIDinMe would have to be a one-tool-fits-all resource in the RFID market.
+
+## Sensitivity Analysis
+
+The following table shows products sensitivity to price.
+
+```{r}
+#| echo: false
+
+#Code provided by Claude
+
+sens_price <- data.frame(
+    price = seq(10, 30),
+    predicted_prob = c(0.995025045, 0.991785700, 0.986465810, 0.977777755, 
+                       0.963717671, 0.941295823, 0.906363958, 0.853872777,
+                       0.779126552, 0.680454783, 0.562457464, 0.436942681,
+                       0.319015379, 0.220454212, 0.145823308, 0.093429352,
+                       0.058569613, 0.036197184, 0.022169337, 0.013501681,
+                       0.008194463),
+    predicted_prob_lower = c(0.983924548, 0.975490322, 0.962528687, 0.943222132,
+                             0.914102765, 0.872021326, 0.813390324, 0.734363280,
+                             0.634852510, 0.520036928, 0.402517843, 0.291964212,
+                             0.198626044, 0.128872911, 0.080236739, 0.048405387,
+                             0.028457843, 0.016443313, 0.009422056, 0.005352835,
+                             0.003031963),
+    predicted_prob_upper = c(0.99843671, 0.99722977, 0.99508459, 0.99127695,
+                             0.98467132, 0.97330460, 0.95387431, 0.92267714,
+                             0.87377070, 0.80158077, 0.70330904, 0.58545490,
+                             0.45985147, 0.34349963, 0.24550091, 0.16916026,
+                             0.11393586, 0.07565677, 0.04947257, 0.03247048,
+                             0.02132043)
+)
+
+# Create the table
+kable(
+    sens_price,
+    digits = 3,
+    caption = "Price Sensitivity Analysis",
+    col.names = c("Price ($)", "Market Share", "Lower 95% CI", "Upper 95% CI"),
+    align = c("r", "r", "r", "r")
+)
+
+```
+
+This table illustrates a shift in probability from nearly 100% market share at a price of $10 and practically 0% at $30.
+
+Below is a table illustrating sensitivity of the other attributes:
+
+```{r}
+#| echo: false
+
+#Code provided by Claude
+
+sens_atts <- data.frame(
+    attribute = c("other", "price", "price", "range", "range", "capacity", "capacity"),
+    case = c("base", "high", "low", "high", "low", "high", "low"),
+    value = c(NA, 16.0, 24.0, 2.4, 1.6, 1.6, 2.4),
+    predicted_prob = c(0.0934293521, 0.9063639584, 0.1458233075, 0.2959048803,
+                       0.1584150398, 0.0003534582, 0.0013421835)
+)
+
+# Create the table
+sens_atts %>%
+    mutate(value = ifelse(is.na(value), "—", as.character(value))) %>%
+    kable(
+        digits = 4,
+        caption = "Attribute Sensitivity Analysis",
+        col.names = c("Attribute", "Case", "Value", "Market Share"),
+        align = c("l", "l", "r", "r")
+    )
+
+```
+The market share of our device is most sensitive to price, with a high-low difference of ~75%, followed by range (~14%) and capacity (0.09%). Below is a tornado plot illustrating this phenomenon.
+
+![Market Share](images/tornado.jpeg)
 
 # Final Recommendations and Conclusions
 
 The proposed RFID implant was evaluated against alternative form factors using simulated preference data. The results indicate that the implant is unlikely to be competitive in the consumer market. The implant received the lowest estimated utility of all form types, while the ring was the only form factor with a positive beta. Consumers placed substantial value on storage capacity far more than on price, which suggests that competitiveness for any device, including an implant, relies heavily on the number of RFID tags it can store. Based on the magnitude of the negative form-factor beta, the implant would require either extremely high capacity or an unusually low price to be competitive with the ring option.
-Several uncertainties constrain confidence in profitability estimates. The most significant is the true upper limit on the device’s capacity; capacity had the largest positive beta in the model, meaning that even moderate increases could meaningfully shift demand. In addition, the underlying dataset showed an unexpected positive beta on price, indicating either a respondent misunderstanding, a desire to avoid the implant by selecting higher-priced alternatives, or a correlation between price and perceived storage. These inconsistencies reduce confidence in the stability of the estimates and suggest that real-world data collection will be required before high-stakes decisions are made.
+
+Several uncertainties constrain confidence in profitability estimates. The most significant is the true upper limit on the device’s capacity; capacity had the largest positive beta in the model, meaning that even moderate increases could meaningfully shift demand. In addition, the underlying data set showed an unexpected positive beta on price, indicating either a respondent misunderstanding, a desire to avoid the implant by selecting higher-priced alternatives, or a correlation between price and perceived storage. These inconsistencies reduce confidence in the stability of the estimates and suggest that real-world data collection will be required before high-stakes decisions are made.
+
 The strongest recommendation is to abandon the implant form factor and instead pursue development of a ring-based RFID device. A ring design is the only option with robust positive consumer preference. The device should prioritize high storage capacity, and the pricing should fall in the medium-to-low range to avoid eroding utility, though demand appears substantially more sensitive to capacity than to price. These recommendations are moderately robust, as they are supported by large differences in utility between form factors; however, true robustness cannot be confirmed until non-simulated data are collected.
-The most promising opportunity to increase demand is to maximize the device’s storage capacity, as this attribute overwhelmingly dominated all others in the model. Additional opportunities include optimizing comfort and wearability through the ring form factor and ensuring compatibility with major operating systems to broaden the potential user base. Together, these strategies offer the clearest path toward market success for the product.
+
+The most promising opportunity to increase demand is to maximize the device’s storage capacity, as this attribute overwhelmingly dominated all others in the model. Additional opportunities include optimizing comfort and 'wearability' through the ring form factor and ensuring compatibility with major operating systems to broaden the potential user base. Together, these strategies offer the clearest path toward market success for the product.
 
 
 # Limitations
+
+The primary limitation of this project was the lack of real data. All data was simulated and inputs from real survey respondents were not included. We would recommend, if further research was to be done, increasing the budget of  the survey so as to improve the quality of respondents. This would be dependent on the interest of further researchers. 
+
+There are several unknowns that could impact our findings as well. There are plenty of regulatory gray areas that could inhibit the market adoption of implantable RFID technology. Additionally, there are more factors we could have included. For example, RFID operates on specific wavelengths, and we did not include any of those.
+
+# Attribution
+
+All members contributed equally.
 
 # Appendix
 
