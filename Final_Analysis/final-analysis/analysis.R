@@ -5,6 +5,7 @@ library(tidyverse)
 library(here)
 library(fastDummies)
 library(cowplot)
+
 # Compute WTP
 
 model_base <- readRDS("Model1.rds")
@@ -144,9 +145,9 @@ summary(model_base)
 baseline <- data.frame(
     altID = c(1, 2, 3, 4),
     obsID = c(1, 1, 1, 1),
-    price = c(25, 30, 40, 100),
+    price = c(25, 45, 40, 50),
     range = c(2,3,5,5),
-    capacity = c(2,5,3,5),
+    capacity = c(2,3,5,5),
     type_ring = c(1, 0, 0,0),
     type_bracelet = c(0, 1, 0,0),
     type_implant = c(0, 0, 1,0),
@@ -171,7 +172,7 @@ sim_mnl
 
 ## Plot Market Simulation
 sim_mnl %>%
-    mutate(label = c("Ring", "Bracelet", "Implant", "Card")) %>%
+    mutate(label = c("Ring Alternative", "Bracelet Alternative", "RFIDinMe", "Card Alternative")) %>%
     ggplot(aes(
         x = label,
         y = predicted_prob,
@@ -183,3 +184,88 @@ sim_mnl %>%
     scale_y_continuous(limits = c(0, 1), labels = scales::percent) +
     labs(x = 'Alternative', y = 'Market Share') +
     theme_bw()
+
+## Sensitivity for Price
+
+# Define the sensitivity cases
+
+prices <- seq(10, 100) # Define sensitivity price levels
+n <- length(prices) # Number of simulations 
+rep_df <- function(df, n) {
+    result <- df[rep(seq_len(nrow(df)), n), ]
+    row.names(result) <- NULL
+    return(result)
+}
+scenarios_price <- rep_df(baseline, n) # Repeat the baseline data frame n times
+scenarios_price$obsID <- rep(seq(n), each = 4) # Reset obsIDs
+
+# Set the price for each scenario
+scenarios_price$price[which(scenarios_price$altID == 3)] <- prices
+head(scenarios_price)
+
+# For each case, simulate the market share predictions
+sens_price <- predict(
+    model_base,
+    newdata = scenarios_price,
+    obsID = 'obsID',
+    level = 0.95,
+    interval = 'confidence',
+    returnData = TRUE
+) %>%
+    # Keep only RFIDinMe alternative
+    filter(altID == 3) %>%
+    # Keep only prices and predictions
+    select(price, starts_with("predicted_"))
+
+sens_price
+
+## Sensitivity to Other Attributes
+
+# "high" means they result in higher market shares
+# "low"  means they result in lower market shares
+cases <- tribble(
+    ~obsID, ~altID, ~attribute,    ~case,  ~value,
+    2,      3,     'price',       'high',  40*0.8,
+    3,      3,     'price',       'low',   40*1.2,
+    4,      3,     'range',       'high',  5*1.2,
+    5,      3,     'range',       'low',   5*0.8,
+    6,      3,     'capacity',    'high',  5*0.8,
+    7,      3,     'capacity',    'low',   5*1.2
+)
+
+cases
+
+# Define scenarios
+n <- 7 # baseline + high & low for each attribute
+scenarios_atts <- rep_df(baseline, n)
+scenarios_atts$obsID <- rep(seq(n), each = 4) # Reset obsIDs
+
+# Replace scenarios with case values
+
+scenarios_atts <- scenarios_atts %>%
+    left_join(cases, by = c("altID", "obsID")) %>%
+    mutate(
+        attribute = ifelse(is.na(attribute), "other", attribute),
+        case = ifelse(is.na(case), "base", case),
+        price = ifelse(!is.na(value) & attribute == 'price', value, price),
+        range = ifelse(!is.na(value) & attribute == 'range', value, range),
+        capacity = ifelse(!is.na(value) & attribute == 'capacity', value, capacity)
+    )
+
+scenarios_atts
+
+# For each case, simulate the market share predictions
+sens_atts <- predict(
+    model_base,
+    newdata = scenarios_atts,
+    obsID = 'obsID',
+    level = 0.95,
+    interval = 'confidence',
+    returnData = TRUE
+) %>%
+    # Keep only RFIDinMe alternative
+    filter(altID == 3) %>%
+    # Keep only attributes and predictions
+    select(attribute, case, value, predicted_prob)
+
+sens_atts
