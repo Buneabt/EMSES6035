@@ -45,3 +45,19 @@ model$gradient
 # 2nd order condition: Is the hessian negative definite?
 # (If all the eigenvalues are negative, the hessian is negative definite)
 eigen(model$hessian)$values
+
+
+
+
+
+#tbl_regression(model) %>%
+#    add_significance_stars() %>%
+#    modify_header(
+#        estimate ~ "**Beta**",
+#        std.error ~ "**SE**",
+#        statistic ~ "**z-value**",
+#        p.value ~ "**p-value**"
+#    ) %>%
+#    modify_column_unhide(c(std.error, statistic, p.value))
+
+
